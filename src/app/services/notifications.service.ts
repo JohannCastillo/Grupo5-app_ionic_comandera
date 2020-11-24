@@ -209,20 +209,15 @@ export class NotificationsService
   {
     let payload =
     {
-      email:"dfedericovera@gmail.com"
+      email: destinatario
     }
     let url = `${this.API}email`;
-    console.log(payload);
-    let body = JSON.stringify(payload);
-    console.log(body);
     const response: Respuesta = await Http.request(
       {
         method: 'POST',
         url: url,
         headers: { 'Content-Type': 'application/json' },
-        data: {
-          email: 'Dfedericovera@gmail.com'
-        }
+        data: payload
 
       });
 
