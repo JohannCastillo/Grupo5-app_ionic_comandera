@@ -102,6 +102,7 @@ export class ImagenService
         let URL = await imagenStorage.ref.getDownloadURL();
 
         imagen.url = URL;
+        imagen.base64 = " ";
         imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
 
       }

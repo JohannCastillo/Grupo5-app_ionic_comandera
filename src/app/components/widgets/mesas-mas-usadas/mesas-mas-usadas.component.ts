@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Mesa } from 'src/app/clases/mesa';
+import { Pedido } from 'src/app/clases/pedido';
 import { MesaService } from 'src/app/services/mesa.service';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
   selector: 'app-mesas-mas-usadas',
@@ -11,56 +13,47 @@ import { MesaService } from 'src/app/services/mesa.service';
 export class MesasMasUsadasComponent implements OnInit
 {
   public highchart;
-  public data;
-  public mesas: Mesa[];
+  public data: any[];
   public chart;
   public updateFromInput = false;
   public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
+  public pedidos: Pedido[];
 
   constructor() { }
 
   ngOnInit() 
   {
-    this.mesas = MesaService.mesas;
+    this.pedidos = PedidoService.pedidos;
+    this.procesarDatos();
     this.crearGrafico();
   }
 
   procesarDatos()
   {
+    let auxiliar;
+    let mesas: Map<number, number> = new Map<number, number>();
 
-    // this.meses.forEach(foto => 
-    // {
-    //   if (new Date(foto.fecha).getDay() == dia) 
-    //   {
-    //     console.log(foto);
+    this.pedidos.forEach(pedido => 
+    {
+      if (!mesas.has(pedido.mesa.numero))
+      {
+        mesas.set(pedido.mesa.numero, 1);
+      }
+      else
+      {
+        mesas.set(pedido.mesa.numero, mesas.get(pedido.mesa.numero) + 1);
+      }
+    });
 
-    //     if (foto.votos.length > mayorVotos) 
-    //     {
-    //       mayorVotos = foto.votos.length;
-    //       imgSrc = foto.url;
-    //       auxiliar = {
-    //         name: new Date(foto.fecha).toISOString(),
-    //         y: foto.votos.length
-    //       };
-    //     }
-    //   }
-    // });
-    // if(auxiliar)
-    // {
-    //   this.assets.push(imgSrc);
-    //   votosPorDia.push(auxiliar);
-    // }
-
-
-    // this.data = votosPorDia;
-    // console.log(this.data);
+    console.log(mesas);
   }
 
   crearGrafico()
   {
+
 
     this.chartCallback = (chart) =>
     {

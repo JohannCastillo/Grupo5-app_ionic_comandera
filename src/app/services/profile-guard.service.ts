@@ -37,24 +37,25 @@ export class ProfileGuardService implements CanActivate
     {
       ruta = state.url;
       console.log(ruta);
+      console.log(this.usuario);
 
       switch (ruta)
       {
         case "/home/inicio":
-
-          break;
         case "/home":
-          if (!this.rolesService.isClientePendiente(this.usuario) ||
-            !this.rolesService.isClienteRechazado(this.usuario))
+          if (this.rolesService.isClientePendiente(this.usuario) ||
+            this.rolesService.isClienteRechazado(this.usuario))
           {
-            activar = true;
+            activar = false;
+            UIVisualService.presentToast(`Usted está en estado ${(<Cliente>this.usuario).estado}`)
           }
           else
           {
-            UIVisualService.presentToast(`El usuario está en estado ${(<Cliente>this.usuario).estado}`)
+            activar = true;
           }
           break;
         default:
+          console.log("default");
           activar = true;
           break;
         // Acá se agregarían rutas restantes a validar

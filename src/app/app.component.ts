@@ -36,7 +36,7 @@ export class AppComponent
 
   initializeApp()
   {
-    // this.pedidosService.leer();
+    this.pedidosService.leer();
     // this.productoService.traerTodos();
     // this.encuestaService.leer();
     this.platform.pause.subscribe(async () =>
