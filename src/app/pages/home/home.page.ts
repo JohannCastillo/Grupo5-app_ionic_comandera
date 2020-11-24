@@ -69,4 +69,8 @@ export class HomePage implements OnInit
     UIVisualService.verEncuesta();
   }
 
+  enviarEmail(){
+    this.notificationService.enviarEmailBienvenida('dfedericovera@gmail.com');
+  }
+
 }
