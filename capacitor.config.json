@@ -1,6 +1,6 @@
 {
   "appId": "com.company.comanda",
-  "appName": "comandera",
+  "appName": "Movimiento Restó",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
