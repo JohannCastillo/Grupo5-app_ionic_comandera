@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePage,
-    canActivate: [ProfileGuardService],
     children: [
       {
         path: 'tab1',
@@ -89,6 +88,10 @@ const routes: Routes = [
       {
         path: 'encuesta',
         loadChildren: () => import('../encuesta/encuesta.module').then(m => m.EncuestaPageModule)
+      },
+      {
+        path: 'estadisticas',
+        loadChildren: () => import('../estadisticas/estadisticas.module').then(m => m.EstadisticasPageModule)
       },
       {
         path: '',

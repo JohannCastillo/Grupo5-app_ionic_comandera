@@ -32,21 +32,14 @@ export class HomePage implements OnInit
     private authService: AuthService,
     private router: Router,
     private notifications: NotificationsService,
-    private actionSheetController: ActionSheetController,
-    private pedidosService: PedidoService,
-    private productoService: ProductoService,
-    private modalController: ModalController,
     private UIVisual: UIVisualService,
-    private encuestaService: EncuestaService,
-    private notificationService:NotificationsService
-  ) { }
+    private notificationService: NotificationsService
+  ) 
+  {
+  }
 
   ngOnInit()
   {
-    this.pedidosService.leer();
-    this.productoService.traerTodos();
-    this.encuestaService.leer();
-
     this.usuario = AuthService.usuario;
     this.notifications.initPush();
     HapticService.vibrar();

@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileGuardService } from './services/profile-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 
+
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
