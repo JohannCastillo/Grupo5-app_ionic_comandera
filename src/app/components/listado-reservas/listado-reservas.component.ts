@@ -29,7 +29,7 @@ export class ListadoReservasComponent implements OnInit
 
   ngOnInit()
   {
-    this.presentLoading('Cargando reservas...', 2000);
+    UIVisualService.loading(2000);
     this.usuario = AuthService.usuario;
     if (this.rolService.isJefe(this.usuario))
     {
