@@ -69,7 +69,6 @@ export class FormMesasComponent implements OnInit
     {
         if (this.mesa && !this.mesa.id)
         {
-            UIVisualService.loading(4000);
             // Se guarda imagen en DB y Storage
             const imagenGuardada = await this.imagenService.crearUnaImagen(
                 this.auxiliarFoto,

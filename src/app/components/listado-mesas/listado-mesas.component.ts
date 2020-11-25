@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { Mesa } from 'src/app/clases/mesa';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-listado-mesas',
@@ -12,12 +12,12 @@ export class ListadoMesasComponent implements OnInit
   @Input() mesas: Mesa[] = [];
   @Output() elegirMesa: EventEmitter<Mesa> = new EventEmitter<Mesa>();
 
-  constructor(private loadingController: LoadingController)
+  constructor()
   { }
 
   ngOnInit() 
   {
-    this.presentLoading('Cargando mesas...', 2000);
+    UIVisualService.loading(2000);
   }
 
   /**
@@ -29,19 +29,6 @@ export class ListadoMesasComponent implements OnInit
     this.elegirMesa.emit(mesa);
   }
 
-  /**
-   * Método para presentar loading
-   * @param message Mensaje del componente
-   * @param duration Duracion del presentacion del mensaje
-   */
-  async presentLoading(message, duration) 
-  {
-    const loading = await this.loadingController.create({
-      message,
-      duration,
-      spinner: 'crescent'
-    });
-    await loading.present();
-  }
+
 
 }
