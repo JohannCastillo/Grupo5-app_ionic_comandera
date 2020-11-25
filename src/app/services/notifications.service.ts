@@ -205,6 +205,26 @@ export class NotificationsService
 
   }
 
+  async enviarEmailBienvenida(destinatario: string)
+  {
+    let payload =
+    {
+      email: destinatario
+    }
+    let url = `${this.API}email`;
+    const response: Respuesta = await Http.request(
+      {
+        method: 'POST',
+        url: url,
+        headers: { 'Content-Type': 'application/json' },
+        data: payload
+
+      });
+
+    console.log(response.data);
+    return response.data;
+  }
+
   manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
   {
     if (this.rolesService.isEmpleado(usuario))
