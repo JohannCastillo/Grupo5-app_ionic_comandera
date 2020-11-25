@@ -48,7 +48,15 @@ export class MenuReservaPage implements OnInit, DoCheck
     });
     this.route.queryParams.subscribe(params =>
     {
-      this.opcion = params.opcion;
+      if (params.opcion)
+      {
+        this.opcion = params.opcion;
+      }
+      else
+      {
+        this.opcion = 'Listado'
+      }
+
     });
 
   }
