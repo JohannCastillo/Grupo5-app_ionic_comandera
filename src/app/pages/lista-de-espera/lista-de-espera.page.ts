@@ -63,6 +63,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
 
   ngOnInit() 
   {
+    UIVisualService.loading(1000);
     this.usuario = AuthService.usuario;
     this.clienteService.leer().then(clientes =>
     {
