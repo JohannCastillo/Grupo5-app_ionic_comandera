@@ -194,6 +194,10 @@
   opacity: 98% !important;
 }
 
+.sc-ion-alert-md-h {
+  --background: var(--ion-color-dark) !important;
+}
+
 .alert-button-inner.sc-ion-alert-md{
   color: var(--ion-color-light) !important;
   --color: var(--ion-color-light) !important;

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import theme from 'highcharts/themes/dark-unica';
+import { Pedido } from 'src/app/clases/pedido';
+import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
+import { PedidoService } from 'src/app/services/pedido.service';
+
+
 
 @Component({
   selector: 'app-clientes-por-dia',
@@ -16,48 +22,44 @@ export class ClientesPorDiaComponent implements OnInit
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
+  public pedidos: Pedido[] = [];
+  public semana: Dia[] = [Dia.Domingo, Dia.Lunes, Dia.Martes, Dia.Miercoles, Dia.Jueves,
+  Dia.Viernes, Dia.Sabado];
 
   constructor() { }
 
   ngOnInit() 
   {
+    this.pedidos = PedidoService.pedidos;
+    this.procesarDatos();
     this.crearGrafico();
   }
 
   procesarDatos()
   {
+    let clientes: number[] = [];
 
-    // this.meses.forEach(foto => 
-    // {
-    //   if (new Date(foto.fecha).getDay() == dia) 
-    //   {
-    //     console.log(foto);
+    this.semana.forEach(dia => 
+    {
+      let cantidad = 0;
 
-    //     if (foto.votos.length > mayorVotos) 
-    //     {
-    //       mayorVotos = foto.votos.length;
-    //       imgSrc = foto.url;
-    //       auxiliar = {
-    //         name: new Date(foto.fecha).toISOString(),
-    //         y: foto.votos.length
-    //       };
-    //     }
-    //   }
-    // });
-    // if(auxiliar)
-    // {
-    //   this.assets.push(imgSrc);
-    //   votosPorDia.push(auxiliar);
-    // }
+      this.pedidos.forEach(pedido => 
+      {
+        if (new Date(pedido.fechaInicio).getDay() == dia && pedido.cliente)
+        {
+          cantidad++;
+        }
+      });
+      clientes.push(cantidad);
+    });
 
-
-    // this.data = votosPorDia;
-    // console.log(this.data);
+    this.data = clientes;
+    console.log(this.data);
   }
 
   crearGrafico()
   {
-
+    theme(Highcharts);
     this.chartCallback = (chart) =>
     {
       setTimeout(() =>
@@ -65,25 +67,49 @@ export class ClientesPorDiaComponent implements OnInit
         chart.reflow();
         this.chartOptions = {
           chart: {
-            type: 'column',
+            type: 'spline'
           },
           title: {
-            text: 'Fruit Consumption'
+            text: 'Cliente por día'
+          },
+          credits: {
+            enabled: false
           },
           xAxis: {
-            categories: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+            categories: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
           },
           yAxis: {
             title: {
-              text: 'Fruit eaten'
+              text: 'Cantidad de clientes'
+            },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+          },
+          tooltip: {
+            shape: "square",
+            borderRadius: 15,
+          },
+          legend: {
+            enabled: false
+          },
+          plotOptions: {
+            spline: {
+              marker: {
+                radius: 4,
+                lineColor: '#666666',
+                lineWidth: 1
+              }
             }
           },
           series: [{
-            name: 'Jane',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
-          }, {
-            name: 'John',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
+            name: 'Clientes',
+            marker: {
+              symbol: 'square'
+            },
+            data: this.data
           }]
         };
       }, 0);

@@ -6,6 +6,11 @@ export class Imagen
     fecha: string;
     rutaStorage?: string;
 
+    constructor()
+    {
+        this.fecha = new Date().toString();
+    }
+
     public static CrearImagen(id: string, base64: string, url: string, fecha: string, rutaStorage: string)
     {
         let imagen = new Imagen();

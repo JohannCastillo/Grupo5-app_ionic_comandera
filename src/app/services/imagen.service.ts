@@ -60,24 +60,22 @@ export class ImagenService
     rutaCarpetaStorage: string
   ): Promise<Imagen> 
   {
-    return new Promise((resolve) => 
+    return new Promise(async (resolve) => 
     {
       let carpeta = rutaCarpetaStorage;
+
       // Se sube imagen a Base de Datos
-      const imagenDB = this.crear(imagen);
+      imagen.id = await this.firebaseDB.createPushId();
+      console.log(imagen.id);
+      // Se guarda imagen en el Storage
+      const imagenStorage = await this.guardarImagen(imagen, carpeta);
+      const URL = await imagenStorage.ref.getDownloadURL();
 
-      imagenDB.then(async () => 
-      {
-        // Se guarda imagen en el Storage
-        const imagenStorage = await this.guardarImagen(imagen, carpeta);
-        const URL = await imagenStorage.ref.getDownloadURL();
+      imagen.base64 = null;
+      imagen.url = URL;
+      imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
 
-        imagen.url = URL;
-        imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
-
-        resolve(imagen);
-      })
-        .catch(console.error);
+      resolve(imagen);
     });
 
   }
@@ -97,12 +95,12 @@ export class ImagenService
       // Se sube imagen a Base de Datos
       for (let imagen of imagenes) 
       {
-        await this.crear(imagen);
+        imagen.id = await this.firebaseDB.createPushId();
         let imagenStorage = await this.guardarImagen(imagen, rutaCarpetaStorage);
         let URL = await imagenStorage.ref.getDownloadURL();
 
         imagen.url = URL;
-        imagen.base64 = " ";
+        imagen.base64 = null;
         imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
 
       }
@@ -128,6 +126,8 @@ export class ImagenService
    */
   private crear(imagen: Imagen)
   {
+    imagen.base64 = null;
+
     return this.firebaseDB.database.ref("imagenes")
       .push()
       .then((snapshot) =>

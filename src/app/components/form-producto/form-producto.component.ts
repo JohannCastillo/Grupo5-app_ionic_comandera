@@ -126,7 +126,7 @@ export class FormProductoComponent
   async registrar()
   {
     UIVisualService.loading(10000);
-    const imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/productos");
+    let imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/productos");
 
     console.log(imagenesGuardadas);
     this.registroForm.get("fotos").setValue(imagenesGuardadas);

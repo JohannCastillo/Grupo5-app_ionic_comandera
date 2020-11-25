@@ -41,6 +41,10 @@ import { EncuestaEmpleadoComponent } from './encuesta-empleado/encuesta-empleado
 import { EncuestaSupervisorComponent } from './encuesta-supervisor/encuesta-supervisor.component';
 import { PopoverUsuariosComponent } from './popover-usuarios/popover-usuarios.component';
 import { MesasMasUsadasComponent } from './widgets/mesas-mas-usadas/mesas-mas-usadas.component';
+import { ClientesPorDiaComponent } from './widgets/clientes-por-dia/clientes-por-dia.component';
+import { AnonimosPorDiaComponent } from './widgets/anonimos-por-dia/anonimos-por-dia.component';
+import { MozoMayorPedidoComponent } from './widgets/mozo-mayor-pedido/mozo-mayor-pedido.component';
+import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pedido.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +88,11 @@ import { MesasMasUsadasComponent } from './widgets/mesas-mas-usadas/mesas-mas-us
     EncuestaSupervisorComponent,
     PopoverUsuariosComponent,
     //Graficos
-    MesasMasUsadasComponent
+    MesasMasUsadasComponent,
+    AnonimosPorDiaComponent,
+    ClientesPorDiaComponent,
+    MozoMayorPedidoComponent,
+    PlatoMasPedidoComponent
   ],
   imports: [
     CommonModule,
@@ -135,8 +143,11 @@ import { MesasMasUsadasComponent } from './widgets/mesas-mas-usadas/mesas-mas-us
     EncuestaSupervisorComponent,
     PopoverUsuariosComponent,
     //Graficos
-
-    MesasMasUsadasComponent
+    MesasMasUsadasComponent,
+    AnonimosPorDiaComponent,
+    ClientesPorDiaComponent,
+    MozoMayorPedidoComponent,
+    PlatoMasPedidoComponent
   ]
 })
 export class ComponentsModule { }

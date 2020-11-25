@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import theme from 'highcharts/themes/dark-unica';
+import { Pedido } from 'src/app/clases/pedido';
+import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
+import { PedidoService } from 'src/app/services/pedido.service';
+import { RolesService } from 'src/app/services/roles.service';
+
 
 @Component({
   selector: 'app-anonimos-por-dia',
@@ -16,48 +22,46 @@ export class AnonimosPorDiaComponent implements OnInit
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
+  public pedidos: Pedido[] = []
+  public semana: Dia[] = [Dia.Domingo, Dia.Lunes, Dia.Martes, Dia.Miercoles, Dia.Jueves,
+  Dia.Viernes, Dia.Sabado];
+  private XCategories: Array<any>;
 
-  constructor() { }
+  constructor(private rolService: RolesService) { }
 
   ngOnInit() 
   {
+    this.pedidos = PedidoService.pedidos;
+    this.procesarDatos();
     this.crearGrafico();
   }
 
   procesarDatos()
   {
+    let anonimos: number[] = [];
 
-    // this.meses.forEach(foto => 
-    // {
-    //   if (new Date(foto.fecha).getDay() == dia) 
-    //   {
-    //     console.log(foto);
+    this.semana.forEach(dia => 
+    {
+      let cantidad = 0;
 
-    //     if (foto.votos.length > mayorVotos) 
-    //     {
-    //       mayorVotos = foto.votos.length;
-    //       imgSrc = foto.url;
-    //       auxiliar = {
-    //         name: new Date(foto.fecha).toISOString(),
-    //         y: foto.votos.length
-    //       };
-    //     }
-    //   }
-    // });
-    // if(auxiliar)
-    // {
-    //   this.assets.push(imgSrc);
-    //   votosPorDia.push(auxiliar);
-    // }
+      this.pedidos.forEach(pedido => 
+      {
+        if (new Date(pedido.fechaInicio).getDay() == dia &&
+          this.rolService.isClienteAnonimo(pedido.cliente))
+        {
+          cantidad++;
+        }
+      });
+      anonimos.push(cantidad);
+    });
 
-
-    // this.data = votosPorDia;
-    // console.log(this.data);
+    this.data = anonimos;
+    console.log(this.data);
   }
 
   crearGrafico()
   {
-
+    theme(Highcharts);
     this.chartCallback = (chart) =>
     {
       setTimeout(() =>
@@ -65,25 +69,51 @@ export class AnonimosPorDiaComponent implements OnInit
         chart.reflow();
         this.chartOptions = {
           chart: {
-            type: 'column',
+            type: 'column'
           },
           title: {
-            text: 'Fruit Consumption'
+            text: 'Anónimos'
+          },
+          subtitle: {
+            text: 'Cantidad por día'
+          },
+          credits: {
+            enabled: false
           },
           xAxis: {
-            categories: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+            categories: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            crosshair: true
           },
           yAxis: {
+            min: 0,
             title: {
-              text: 'Fruit eaten'
+              text: 'Cantidad de anónimos'
+            },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+          },
+          legend: {
+            enabled: false
+          },
+          tooltip: {
+            useHTML: true,
+            shape: "square",
+            borderRadius: 15,
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
             }
           },
           series: [{
-            name: 'Jane',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
-          }, {
-            name: 'John',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
+            type: 'column',
+            name: "Anónimos",
+            colorByPoint: true,
+            data: this.data
           }]
         };
       }, 0);

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { Mesa } from 'src/app/clases/mesa';
 import { Pedido } from 'src/app/clases/pedido';
-import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import theme from 'highcharts/themes/dark-unica';
+
 
 @Component({
   selector: 'app-mesas-mas-usadas',
@@ -13,14 +13,14 @@ import { PedidoService } from 'src/app/services/pedido.service';
 export class MesasMasUsadasComponent implements OnInit
 {
   public highchart;
-  public data: any[];
+  public data: { name: string, y: number }[] = [];
   public chart;
   public updateFromInput = false;
   public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
-  public pedidos: Pedido[];
+  public pedidos: Pedido[] = [];
 
   constructor() { }
 
@@ -33,7 +33,6 @@ export class MesasMasUsadasComponent implements OnInit
 
   procesarDatos()
   {
-    let auxiliar;
     let mesas: Map<number, number> = new Map<number, number>();
 
     this.pedidos.forEach(pedido => 
@@ -49,12 +48,15 @@ export class MesasMasUsadasComponent implements OnInit
     });
 
     console.log(mesas);
+    mesas.forEach((value, key) =>
+    {
+      this.data.push({ name: `Mesa:${key}`, y: value });
+    });
   }
 
   crearGrafico()
   {
-
-
+    theme(Highcharts);
     this.chartCallback = (chart) =>
     {
       setTimeout(() =>
@@ -62,25 +64,38 @@ export class MesasMasUsadasComponent implements OnInit
         chart.reflow();
         this.chartOptions = {
           chart: {
-            type: 'column',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
           },
           title: {
-            text: 'Fruit Consumption'
+            text: 'Mesas más usadas'
           },
-          xAxis: {
-            categories: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+          credits: {
+            enabled: false
           },
-          yAxis: {
-            title: {
-              text: 'Fruit eaten'
+          tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.y}',
+                style: {
+                  color: 'black'
+                }
+              }
             }
           },
           series: [{
-            name: 'Jane',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
-          }, {
-            name: 'John',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
+            name: 'Pedidos',
+            colorByPoint: true,
+            type: undefined,
+            data: this.data
           }]
         };
       }, 0);

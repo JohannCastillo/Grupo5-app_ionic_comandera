@@ -13,6 +13,15 @@ export class Empleado extends Usuario
   tipo: TipoEmpleado;
   cuil: string;
 
+  public constructor(init?: Partial<Empleado>)
+  {
+    super();
+    if (init)
+    {
+      Object.assign(this, init);
+    }
+  }
+
   public static CrearEmpleado(
     id: string,
     nombre: string,

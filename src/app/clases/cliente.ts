@@ -15,6 +15,15 @@ export class Cliente extends Usuario
   estado: EstadoAceptacion;
   enListaDeEspera: IListaEspera;
 
+  public constructor(init?: Partial<Cliente>)
+  {
+    super();
+    if (init)
+    {
+      Object.assign(this, init);
+    }
+  }
+
   public static CrearCliente(
     id: string,
     nombre: string,
