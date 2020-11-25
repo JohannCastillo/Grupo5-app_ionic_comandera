@@ -1,10 +1,9 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
-import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 
@@ -15,6 +14,7 @@ import { RolesService } from 'src/app/services/roles.service';
 })
 export class MenuReservaPage implements OnInit, DoCheck
 {
+
   usuario: Usuario;
   opcion: string = 'Listado';
   listado: Pedido[];
@@ -23,7 +23,9 @@ export class MenuReservaPage implements OnInit, DoCheck
   constructor(private pedidoService: PedidoService,
     private rolService: RolesService,
     private platform: Platform,
-    private router: Router) 
+    private router: Router,
+    private route: ActivatedRoute,
+  ) 
   {
     this.platform.backButton.subscribeWithPriority(10, () =>
     {
@@ -44,6 +46,19 @@ export class MenuReservaPage implements OnInit, DoCheck
     {
       this.listado = data.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
     });
+    this.route.queryParams.subscribe(params =>
+    {
+      if (params.opcion)
+      {
+        this.opcion = params.opcion;
+      }
+      else
+      {
+        this.opcion = 'Listado'
+      }
+
+    });
+
   }
 
   seleccionarOpcion(event)

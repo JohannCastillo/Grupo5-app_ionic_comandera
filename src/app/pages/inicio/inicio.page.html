@@ -9,7 +9,7 @@
           <p>Utilice el escáner QR para ingresar por lista de espera con el código del local o reserve una mesa
             presionando en el botón</p>
         </ion-label>
-        <ion-button fill="clear" color="dark">
+        <ion-button fill="clear" color="dark" [routerLink]="['/home/menu-reserva']" [queryParams]="{ opcion: 'Alta' }">
           Realizar reserva
           <ion-icon slot="end" name="arrow-forward"></ion-icon>
         </ion-button>

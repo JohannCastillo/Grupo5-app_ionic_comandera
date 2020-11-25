@@ -68,6 +68,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck, ViewDidLeave
 
   ngOnInit() 
   {
+    UIVisualService.loading(1000);
     this.asignandoMesa = false;
     this.usuario = AuthService.usuario;
     this.clienteService.leer().then(clientes =>
