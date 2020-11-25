@@ -7,6 +7,9 @@ import { SplashComponent } from './components/splash/splash.component';
 import { Router } from '@angular/router';
 import { AudioService } from './services/audio.service';
 import { NotificationsService } from './services/notifications.service';
+import { EncuestaService } from './services/encuesta.service';
+import { PedidoService } from './services/pedido.service';
+import { ProductoService } from './services/producto.service';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +25,20 @@ export class AppComponent
     private modalCtrl: ModalController,
     private router: Router,
     private audioService: AudioService,
-    private notificationService:NotificationsService
+    private notificationService: NotificationsService,
+    private pedidosService: PedidoService,
+    private productoService: ProductoService,
+    private encuestaService: EncuestaService
   )
   {
+    this.initializeApp();
+  }
 
+  initializeApp()
+  {
+    this.pedidosService.leer();
+    // this.productoService.traerTodos();
+    //this.encuestaService.leer();
     this.platform.pause.subscribe(async () =>
     {
       this.audioService.play('cierre');
@@ -34,16 +47,6 @@ export class AppComponent
     this.platform.ready().then(() =>
     {
       this.presentModal().then(() => this.router.navigate(['/auth-page']));
-    });
-  }
-
-  initializeApp()
-  {
-    this.platform.ready().then(() =>
-    {
-      this.notificationService.unsubscribeAll();
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
     });
   }
 

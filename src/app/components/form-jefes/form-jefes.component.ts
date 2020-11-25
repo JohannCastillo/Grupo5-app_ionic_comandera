@@ -61,8 +61,9 @@ export class FormJefesComponent implements OnInit
   {
     if (this.jefe && !this.jefe.id)
     {
+      UIVisualService.loading(5000);
       // Se guarda imagen en DB y Storage
-      const imagenGuardada = await this.imagenService.crearUnaImagen(
+      let imagenGuardada = await this.imagenService.crearUnaImagen(
         this.auxiliarFoto,
         '/jefes'
       )

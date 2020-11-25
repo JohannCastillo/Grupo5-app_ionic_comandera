@@ -377,11 +377,20 @@ export class UIVisualService
         },
         {
           text: 'Encuesta',
-          icon: 'analytics-outline',
+          icon: 'document-text-sharp',
           handler: () => 
           {
             this.loading();
             UIVisualService.verEncuesta();
+          }
+        },
+        {
+          text: 'Estadísticas',
+          icon: 'analytics-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.UI.router.navigate(['/home/estadisticas']);
           }
         },
         {

@@ -52,19 +52,7 @@ export class EmpleadoService
         snapshot.forEach((child) =>
         {
           var data: Empleado = child.val();
-          empleados.push(
-            Empleado.CrearEmpleado(
-              data.id,
-              data.nombre,
-              data.apellido,
-              data.dni,
-              data.foto,
-              data.email,
-              data.isActive,
-              data.tipo,
-              data.cuil
-            )
-          );
+          empleados.push(new Empleado(data));
         });
 
         EmpleadoService.empleados = empleados.filter(e => e.isActive);

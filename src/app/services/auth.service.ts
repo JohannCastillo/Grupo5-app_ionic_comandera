@@ -275,6 +275,7 @@ export class AuthService
       this.afAuth.createUserWithEmailAndPassword(empleado.email, empleado.password)
         .then(response =>
         {
+          console.log(response);
           empleado.password = null;
           this.empleadoService.crear(empleado, response.user.uid);
           resolve(response);
