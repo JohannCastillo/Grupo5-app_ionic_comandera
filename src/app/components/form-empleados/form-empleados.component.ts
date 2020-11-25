@@ -61,13 +61,19 @@ export class FormEmpleadosComponent implements OnInit
   {
     if (this.empleado && !this.empleado.id)
     {
-      UIVisualService.loading(8000);
+      UIVisualService.loading(5000);
+
       // Se guarda imagen en DB y Storage
-      const imagenGuardada = await this.imagenService.crearUnaImagen(
-        this.auxiliarFoto,
-        '/empleado'
-      )
-      this.empleado.foto = imagenGuardada;
+      if (this.auxiliarFoto)
+      {
+        let imagenGuardada = await this.imagenService.crearUnaImagen(
+          this.auxiliarFoto,
+          '/empleado'
+        )
+        this.empleado.foto = imagenGuardada;
+      }
+
+      console.log(this.empleado);
 
       this.authService
         .onRegisterEmpleado(this.empleado)

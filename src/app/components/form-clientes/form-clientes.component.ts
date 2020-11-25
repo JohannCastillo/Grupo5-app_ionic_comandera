@@ -60,12 +60,14 @@ export class FormClientesComponent implements OnInit
   {
     if (this.cliente && !this.cliente.id)
     {
+      UIVisualService.loading(5000);
       // Se guarda imagen en DB y Storage
-      const imagenGuardada = await this.imagenService.crearUnaImagen(
+      let imagenGuardada = await this.imagenService.crearUnaImagen(
         this.auxiliarFoto,
         '/clientes'
       )
       this.cliente.foto = imagenGuardada;
+      console.log(this.cliente);
 
       this.authService
         .onRegisterCliente(this.cliente)

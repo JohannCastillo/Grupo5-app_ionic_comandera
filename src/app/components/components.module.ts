@@ -10,6 +10,7 @@ import { FormProductoComponent } from './form-producto/form-producto.component';
 import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 // Usuarios
 import { FormClientesComponent } from './form-clientes/form-clientes.component';
@@ -39,6 +40,11 @@ import { EncuestaClienteComponent } from './encuesta-cliente/encuesta-cliente.co
 import { EncuestaEmpleadoComponent } from './encuesta-empleado/encuesta-empleado.component';
 import { EncuestaSupervisorComponent } from './encuesta-supervisor/encuesta-supervisor.component';
 import { PopoverUsuariosComponent } from './popover-usuarios/popover-usuarios.component';
+import { MesasMasUsadasComponent } from './widgets/mesas-mas-usadas/mesas-mas-usadas.component';
+import { ClientesPorDiaComponent } from './widgets/clientes-por-dia/clientes-por-dia.component';
+import { AnonimosPorDiaComponent } from './widgets/anonimos-por-dia/anonimos-por-dia.component';
+import { MozoMayorPedidoComponent } from './widgets/mozo-mayor-pedido/mozo-mayor-pedido.component';
+import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pedido.component';
 
 @NgModule({
   declarations: [
@@ -80,14 +86,21 @@ import { PopoverUsuariosComponent } from './popover-usuarios/popover-usuarios.co
     EncuestaClienteComponent,
     EncuestaEmpleadoComponent,
     EncuestaSupervisorComponent,
-    PopoverUsuariosComponent
+    PopoverUsuariosComponent,
+    //Graficos
+    MesasMasUsadasComponent,
+    AnonimosPorDiaComponent,
+    ClientesPorDiaComponent,
+    MozoMayorPedidoComponent,
+    PlatoMasPedidoComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    PipesModule
+    PipesModule,
+    HighchartsChartModule
   ],
   exports: [
     SplashComponent,
@@ -128,7 +141,13 @@ import { PopoverUsuariosComponent } from './popover-usuarios/popover-usuarios.co
     EncuestaClienteComponent,
     EncuestaEmpleadoComponent,
     EncuestaSupervisorComponent,
-    PopoverUsuariosComponent
+    PopoverUsuariosComponent,
+    //Graficos
+    MesasMasUsadasComponent,
+    AnonimosPorDiaComponent,
+    ClientesPorDiaComponent,
+    MozoMayorPedidoComponent,
+    PlatoMasPedidoComponent
   ]
 })
 export class ComponentsModule { }

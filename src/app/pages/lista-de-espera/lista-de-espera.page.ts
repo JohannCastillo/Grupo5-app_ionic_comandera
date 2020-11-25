@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Platform, ViewDidLeave } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mesa } from 'src/app/clases/mesa';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
@@ -17,7 +17,7 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
   templateUrl: './lista-de-espera.page.html',
   styleUrls: ['./lista-de-espera.page.scss'],
 })
-export class ListaDeEsperaPage implements OnInit, DoCheck
+export class ListaDeEsperaPage implements OnInit, DoCheck, ViewDidLeave
 {
 
   asignandoMesa: boolean = false;
@@ -42,6 +42,11 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
     });
   }
 
+  ionViewDidLeave(): void
+  {
+    this.asignandoMesa = false;
+  }
+
   ngDoCheck(): void
   {
     this.clientes = ClienteService.clientes.filter(cliente => cliente.enListaDeEspera.isWaiting == true).sort(this.compararFecha);
@@ -63,7 +68,11 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
 
   ngOnInit() 
   {
+<<<<<<< HEAD
     UIVisualService.loading(1000);
+=======
+    this.asignandoMesa = false;
+>>>>>>> b6f5d96fce2472a4e13df19e270d687f01c9518b
     this.usuario = AuthService.usuario;
     this.clienteService.leer().then(clientes =>
     {

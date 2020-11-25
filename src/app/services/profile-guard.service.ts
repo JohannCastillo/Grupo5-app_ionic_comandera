@@ -7,6 +7,7 @@ import { Jefe, TipoJefe } from '../clases/jefe';
 import { Usuario } from '../clases/usuario';
 import { AuthService } from './auth.service';
 import { RolesService } from './roles.service';
+import { UIVisualService } from './uivisual.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class ProfileGuardService implements CanActivate
 {
   usuario: Usuario;
 
-  constructor(private router: Router, private rolesService: RolesService) { }
+  constructor(private router: Router,
+    private rolesService: RolesService,
+    private UIVisual: UIVisualService) { }
 
   /**
   * Método para validar navegación según perfil del Usuario
@@ -30,45 +33,36 @@ export class ProfileGuardService implements CanActivate
     // Sólo a modo de ejemplo
     console.log(state);
 
-
     if (state)
     {
       ruta = state.url;
       console.log(ruta);
-
+      console.log(this.usuario);
 
       switch (ruta)
       {
         case "/home/inicio":
-          activar = true;
-          break;
-        case "/home/tab1":
-          // Esto cambiaría con el servicio de Roles / Perfiles
-          // if (this.rolesService.isJefe(this.usuario))
-          // {
-          // Se deja habilitado el tab de testing para todos los usuarios
-          activar = true;
-          // }
-          break;
-        case "/home/tab2":
-          if (this.rolesService.isCliente(this.usuario))
+        case "/home":
+          if (this.rolesService.isClientePendiente(this.usuario) ||
+            this.rolesService.isClienteRechazado(this.usuario))
+          {
+            activar = false;
+            UIVisualService.presentToast(`Usted está en estado ${(<Cliente>this.usuario).estado}`)
+          }
+          else
           {
             activar = true;
           }
           break;
-        case "/home/tab3":
-          if (this.rolesService.isEmpleado(this.usuario))
-          {
-            activar = true;
-          }
+        default:
+          console.log("default");
+          activar = true;
           break;
         // Acá se agregarían rutas restantes a validar
       }
     }
-
     // Se puede navegar a una página definida para caso que no cumpla la validacion
     //this.router.navigate(["tabs"]);
-
     return activar;
   }
 

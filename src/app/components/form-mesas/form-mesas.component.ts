@@ -70,7 +70,7 @@ export class FormMesasComponent implements OnInit
         if (this.mesa && !this.mesa.id)
         {
             // Se guarda imagen en DB y Storage
-            const imagenGuardada = await this.imagenService.crearUnaImagen(
+            let imagenGuardada = await this.imagenService.crearUnaImagen(
                 this.auxiliarFoto,
                 '/mesas'
             )
