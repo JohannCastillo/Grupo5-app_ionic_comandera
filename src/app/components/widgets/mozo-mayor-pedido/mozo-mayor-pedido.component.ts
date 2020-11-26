@@ -1,5 +1,30 @@
+import { createElementCssSelector } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import theme from 'highcharts/themes/dark-unica';
+
+import { Empleado, TipoEmpleado } from 'src/app/clases/empleado';
+import { Pedido } from 'src/app/clases/pedido';
+import { Dia } from 'src/app/pages/estadisticas/estadisticas.page';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import { PedidoService } from 'src/app/services/pedido.service';
+
+// Highcharts.setOptions({
+//   colors: Highcharts.map(Highcharts.getOptions().colors, function (color)
+//   {
+//     return {
+//       radialGradient: {
+//         cx: 0.5,
+//         cy: 0.3,
+//         r: 0.7
+//       },
+//       stops: [
+//         [0, color],
+//         [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+//       ]
+//     };
+//   })
+// });
 
 @Component({
   selector: 'app-mozo-mayor-pedido',
@@ -9,86 +34,99 @@ import * as Highcharts from 'highcharts';
 export class MozoMayorPedidoComponent implements OnInit
 {
   public highchart;
-  public data;
+  public data: any[] = [];
   public chart;
   public updateFromInput = false;
   public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
+  public pedidos: Pedido[] = [];
+  public mozos: Empleado[] = [];
+  public semana: Dia[] = [Dia.Domingo, Dia.Lunes, Dia.Martes, Dia.Miercoles, Dia.Jueves,
+  Dia.Viernes, Dia.Sabado];
 
   constructor() { }
 
   ngOnInit() 
   {
+    this.pedidos = PedidoService.pedidos;
+    this.mozos = EmpleadoService.empleados.filter(e => e.tipo == TipoEmpleado.Mozo);
+    console.log(this.mozos);
+    this.procesarDatos();
     this.crearGrafico();
   }
 
-  procesarDatos()
+  async procesarDatos()
   {
+    let mozos: Map<string, number> = new Map<string, number>();
 
-    // this.meses.forEach(foto => 
-    // {
-    //   if (new Date(foto.fecha).getDay() == dia) 
-    //   {
-    //     console.log(foto);
+    this.pedidos.forEach(pedido => 
+    {
+      if (pedido.idMozo.length > 0 && !mozos.has(pedido.idMozo))
+      {
+        mozos.set(pedido.idMozo, 1);
+      }
+      else
+      {
+        mozos.set(pedido.idMozo, mozos.get(pedido.idMozo) + 1);
+      }
+    });
 
-    //     if (foto.votos.length > mayorVotos) 
-    //     {
-    //       mayorVotos = foto.votos.length;
-    //       imgSrc = foto.url;
-    //       auxiliar = {
-    //         name: new Date(foto.fecha).toISOString(),
-    //         y: foto.votos.length
-    //       };
-    //     }
-    //   }
-    // });
-    // if(auxiliar)
-    // {
-    //   this.assets.push(imgSrc);
-    //   votosPorDia.push(auxiliar);
-    // }
+    console.log(mozos);
 
+    this.mozos.forEach(m =>
+    {
+      this.data.push({ name: `${m.nombre} ${m.apellido}`, y: mozos.get(m.id) });
+    });
 
-    // this.data = votosPorDia;
-    // console.log(this.data);
+    console.log(this.data);
   }
 
   crearGrafico()
   {
-
+    theme(Highcharts);
     this.chartCallback = (chart) =>
     {
-      setTimeout(() =>
+      setTimeout(() => 
       {
         chart.reflow();
-        this.chartOptions = {
+        this.chartOptions =
+        {
           chart: {
-            type: 'column',
+            type: 'pie'
           },
           title: {
-            text: 'Fruit Consumption'
+            text: 'Cantidad de pedidos por Mozo'
           },
-          xAxis: {
-            categories: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+          credits: {
+            enabled: false
           },
-          yAxis: {
-            title: {
-              text: 'Fruit eaten'
+          tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.y} ',
+                connectorColor: 'silver'
+              }
             }
           },
           series: [{
-            name: 'Jane',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
-          }, {
-            name: 'John',
-            data: [1, 0, 4, 1, 2, 3, 6, 7, 8, 4, 1, 6]
+            name: 'Pedidos',
+            colorByPoint: true,
+            type: undefined,
+            data: this.data
           }]
-        };
+        }
       }, 0);
     };
     this.chartOptions = {};
   }
+
 
 }

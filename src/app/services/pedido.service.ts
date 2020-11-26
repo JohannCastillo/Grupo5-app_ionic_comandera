@@ -17,8 +17,8 @@ export class PedidoService
   public static pedidos: Pedido[] = [];
 
   constructor(private firebase: AngularFireDatabase, private router: Router,
-    private mesaService: MesaService, private notificationService: NotificationsService,private toastController: ToastController,
-    private rolesService:RolesService) { }
+    private mesaService: MesaService, private notificationService: NotificationsService, private toastController: ToastController,
+    private rolesService: RolesService) { }
 
   /**
    * Método para realizar Alta en DB
@@ -128,6 +128,7 @@ export class PedidoService
    */
   recibirPedido(pedido: Pedido)
   {
+    console.log(pedido);
     if (pedido.estado == EstadoPedido.LISTO)
     {
       console.log("Se recibe pedido en la mesa");
@@ -188,7 +189,7 @@ export class PedidoService
     if (notificarACocinero)
     {
       this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'cocineros')
-        .then(() =>  this.presentToast('Cocinero Notificado'))
+        .then(() => this.presentToast('Cocinero Notificado'))
         .catch(() => this.presentToast('No se pudo Notificar al cocinero, pegale un grito'))
     }
     if (notificarABartender)
@@ -217,7 +218,8 @@ export class PedidoService
     if (pedido.estado == EstadoPedido.CERRADO)
     {
       console.log("Se valida pago de la mesa");
-      if(this.rolesService.isEmpleadoMozo(AuthService.usuario)){
+      if (this.rolesService.isEmpleadoMozo(AuthService.usuario))
+      {
         pedido.idMozo = AuthService.usuario.id;
       }
       pedido.cambiarEstado();

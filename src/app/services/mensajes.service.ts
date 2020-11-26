@@ -25,10 +25,10 @@ export class MensajesService implements IDatabase<Mensaje>
 
   crear(mensaje: Mensaje): Promise<any>
   {
-    return this.firebase.database.ref('mensajes')
-      .push(mensaje)
-      .then((snapshot) => mensaje.id = snapshot.key)
-      .then(() => this.actualizar(mensaje))
+    mensaje.id = this.firebase.createPushId();
+
+    return this.firebase.database.ref('mensajes/' + mensaje.id)
+      .set(mensaje)
       .catch(console.error);
   }
   actualizar(mensaje: Mensaje): Promise<any>

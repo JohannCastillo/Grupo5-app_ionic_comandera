@@ -16,7 +16,7 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
   templateUrl: './info-mesa.page.html',
   styleUrls: ['./info-mesa.page.scss'],
 })
-export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
+export class InfoMesaPage implements OnInit, DoCheck
 {
   usuario: Usuario;
   pedido: Pedido = new Pedido();
@@ -34,12 +34,8 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
 
   ngDoCheck(): void
   {
+    console.log("Do Check");
     this.buscarReserva();
-  }
-
-  ionViewDidEnter(): void
-  {
-    this.pedidoService.leer();
   }
 
   ngOnInit() 
@@ -53,7 +49,6 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
     {
       this.idMesa = params['mesa'];
       this.idPedido = params['pedido'] ? params['pedido'] : "";
-
     });
   }
 
@@ -69,8 +64,10 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
         // Agregar validacion de hora actual
         if (pedido.cliente && pedido.mesa)
         {
-          return pedido.mesa.id === this.idMesa && pedido.cliente.id === this.usuario.id &&
-            this.compararFechas(new Date(pedido.fechaInicio), fechaActual);
+          return pedido.mesa.id === this.idMesa &&
+            pedido.cliente.id === this.usuario.id &&
+            this.compararFechas(new Date(pedido.fechaInicio), fechaActual) &&
+            pedido.estado != EstadoPedido.PAGADO;
         }
       })[0];
     }
@@ -94,7 +91,7 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
     if (fechaA.getUTCFullYear() === fechaB.getFullYear() &&
       fechaA.getUTCMonth() === fechaB.getMonth() &&
       fechaA.getUTCDate() === fechaB.getDate() &&
-      fechaA.getUTCHours() === fechaB.getHours())
+      fechaA.getUTCHours() <= fechaB.getHours())
     {
       return true;
     }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Pedido } from 'src/app/clases/pedido';
+import { Dia } from 'src/app/pages/estadisticas/estadisticas.page';
+import { PedidoService } from 'src/app/services/pedido.service';
 import * as Highcharts from 'highcharts';
 import theme from 'highcharts/themes/dark-unica';
-import { Pedido } from 'src/app/clases/pedido';
-import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
-import { PedidoService } from 'src/app/services/pedido.service';
 
 
 
@@ -14,11 +14,11 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class ClientesPorDiaComponent implements OnInit
 {
+  public Highcharts = Highcharts;
   public highchart;
   public data;
   public chart;
   public updateFromInput = false;
-  public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
@@ -45,7 +45,7 @@ export class ClientesPorDiaComponent implements OnInit
 
       this.pedidos.forEach(pedido => 
       {
-        if (new Date(pedido.fechaInicio).getDay() == dia && pedido.cliente)
+        if (new Date(pedido.fechaInicio).getDay() == dia)
         {
           cantidad++;
         }
@@ -70,7 +70,7 @@ export class ClientesPorDiaComponent implements OnInit
             type: 'spline'
           },
           title: {
-            text: 'Cliente por día'
+            text: 'Clientes por día'
           },
           credits: {
             enabled: false
@@ -109,7 +109,7 @@ export class ClientesPorDiaComponent implements OnInit
             marker: {
               symbol: 'square'
             },
-            data: this.data
+            data: this.data //[V,V,V,V]
           }]
         };
       }, 0);

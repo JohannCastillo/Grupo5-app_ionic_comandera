@@ -37,7 +37,6 @@ export class ProfileGuardService implements CanActivate
     {
       ruta = state.url;
       console.log(ruta);
-      console.log(this.usuario);
 
       switch (ruta)
       {

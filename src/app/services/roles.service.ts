@@ -56,7 +56,7 @@ export class RolesService
   {
     if (usuario instanceof Cliente)
     {
-      return usuario.estado == EstadoAceptacion.Anonimo;
+      return usuario.estado === EstadoAceptacion.Anonimo;
     }
     return false;
   }

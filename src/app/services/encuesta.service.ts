@@ -17,11 +17,10 @@ export class EncuestaService implements IDatabase<Encuesta>{
   {
     console.log(encuesta);
     encuesta.fecha = new Date().toISOString();
+    encuesta.id = this.firebase.createPushId();
 
-    return this.firebase.database.ref('encuestas')
-      .push(encuesta)
-      .then((snapshot) => encuesta.id = snapshot.key)
-      .then(() => this.actualizar(encuesta))
+    return this.firebase.database.ref('encuestas/' + encuesta.id)
+      .set(encuesta)
       .catch(console.error);
   }
 

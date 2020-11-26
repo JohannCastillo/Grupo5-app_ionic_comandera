@@ -26,13 +26,15 @@ export class Pedido
     estado: EstadoPedido;
     isActive: boolean;
     propina?: number;
-    idMozo:string;
+    idMozo: string;
 
     public constructor(init?: Partial<Pedido>)
     {
         if (init)
         {
             Object.assign(this, init);
+            this.cliente = new Cliente(init.cliente);
+            this.mesa = new Mesa(init.mesa);
         }
         else
         {
@@ -52,8 +54,8 @@ export class Pedido
         let pedido = new Pedido();
 
         pedido.id = id;
-        pedido.cliente = cliente;
-        pedido.mesa = mesa;
+        pedido.cliente = new Cliente(cliente);
+        pedido.mesa = new Mesa(mesa);
         pedido.productos = productos ? productos : [];
         pedido.valorTotal = valorTotal;
         pedido.fechaInicio = fechaInicio;

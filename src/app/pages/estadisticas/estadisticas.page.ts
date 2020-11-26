@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmpleadoService } from 'src/app/services/empleado.service';
 
 export interface Serie
 {
@@ -25,10 +26,11 @@ export enum Dia
 export class EstadisticasPage implements OnInit
 {
 
-  constructor() { }
+  constructor(private empleadosService: EmpleadoService) { }
 
-  ngOnInit()
+  async ngOnInit()
   {
+    await this.empleadosService.leer();
   }
 
 }
