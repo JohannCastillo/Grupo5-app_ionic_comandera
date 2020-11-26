@@ -266,7 +266,7 @@ export class UIVisualService
       }
     });
 
-    this.loading();
+    UIVisualService.loading();
     await modal.present();
   }
 
