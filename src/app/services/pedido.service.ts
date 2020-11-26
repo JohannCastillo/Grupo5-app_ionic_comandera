@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { TipoEmpleado } from '../clases/empleado';
 import { EstadoPedido, Pedido } from '../clases/pedido';
+import { AuthService } from './auth.service';
 import { MesaService } from './mesa.service';
 import { NotificationsService } from './notifications.service';
+import { RolesService } from './roles.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class PedidoService
   public static pedidos: Pedido[] = [];
 
   constructor(private firebase: AngularFireDatabase, private router: Router,
-    private mesaService: MesaService, private notificationService: NotificationsService,private toastController: ToastController) { }
+    private mesaService: MesaService, private notificationService: NotificationsService,private toastController: ToastController,
+    private rolesService:RolesService) { }
 
   /**
    * Método para realizar Alta en DB
@@ -214,6 +217,9 @@ export class PedidoService
     if (pedido.estado == EstadoPedido.CERRADO)
     {
       console.log("Se valida pago de la mesa");
+      if(this.rolesService.isEmpleadoMozo(AuthService.usuario)){
+        pedido.idMozo = AuthService.usuario.id;
+      }
       pedido.cambiarEstado();
       return this.actualizar(pedido);
     }

@@ -26,6 +26,7 @@ export class Pedido
     estado: EstadoPedido;
     isActive: boolean;
     propina?: number;
+    idMozo:string;
 
     public constructor(init?: Partial<Pedido>)
     {
@@ -39,6 +40,7 @@ export class Pedido
             this.productos = [];
             this.isActive = true;
             this.propina = 0;
+            this.idMozo = '';
         }
     }
 
