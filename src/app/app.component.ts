@@ -11,6 +11,7 @@ import { EncuestaService } from './services/encuesta.service';
 import { PedidoService } from './services/pedido.service';
 import { ProductoService } from './services/producto.service';
 import { EmpleadoService } from './services/empleado.service';
+import { ClienteService } from './services/cliente.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent
     private pedidosService: PedidoService,
     private productoService: ProductoService,
     private encuestaService: EncuestaService,
-    private empleadosService: EmpleadoService
+    private empleadosService: EmpleadoService,
+    private clienteService: ClienteService
   )
   {
     this.initializeApp();
@@ -42,6 +44,7 @@ export class AppComponent
     this.productoService.traerTodos();
     this.empleadosService.leer();
     this.encuestaService.leer();
+    this.clienteService.leerRechazados();
     this.platform.pause.subscribe(async () =>
     {
       this.audioService.play('cierre');
