@@ -216,10 +216,7 @@ export class NotificationsService
         title: titulo,
         body: mensaje
       },
-      data:
-      {
-        mensaje: mensaje
-      }
+      token: token
     }
     let url = `${this.API}mensaje`;
     console.log(payload);
