@@ -43,13 +43,13 @@ export class ClientesRechazadosPorDiaComponent implements OnInit
     let InicioDeActividades = new Date(2020,11,1);
     let hoy = new Date();
     console.log('Rechazados por dia',InicioDeActividades.toLocaleString(),'HASTA',hoy.toLocaleString());
-    do {
+    /* do {
       console.log(InicioDeActividades.toLocaleDateString());
       console.log(InicioDeActividades.getTime());
       console.log(hoy.getTime());
       InicioDeActividades = this.sumarDias(InicioDeActividades, 1);
       console.log(InicioDeActividades.getTime());
-    } while (InicioDeActividades.getTime() < hoy.getTime());
+    } while (InicioDeActividades.getTime() < hoy.getTime()); */
     this.XCategories
 /*     this.semana.forEach(dia => 
     {
