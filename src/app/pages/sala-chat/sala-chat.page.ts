@@ -45,7 +45,6 @@ export class SalaChatPage implements OnInit, DoCheck
   enviar()
   {
     let tipo;
-    this.mensaje = new Mensaje();
 
     if (this.rolService.isCliente(this.usuario))
     {
