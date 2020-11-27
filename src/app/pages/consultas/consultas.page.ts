@@ -57,7 +57,7 @@ export class ConsultasPage implements OnInit, DoCheck
     {
       for (const mensajeNuevo of mensajes) 
       {
-        let usuario = (<Cliente>mensajeNuevo.usuario);
+        let usuario = mensajeNuevo.usuario;
         let mensaje = this.mensajes ? this.mensajes.find(m => m.chatId == mensajeNuevo.chatId) : null;
 
         if (!mensaje &&
