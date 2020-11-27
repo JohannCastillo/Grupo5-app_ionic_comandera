@@ -175,6 +175,7 @@ export class NotificationsService
     }
 
   }
+
   async enviarNotificacion(titulo: string, mensaje: string, ruta: string, topic: string)
   {
     let payload: INotificacion =
@@ -190,6 +191,37 @@ export class NotificationsService
       }
     }
     let url = `${this.API}${topic}`;
+    console.log(payload);
+
+    const response: Respuesta = await Http.request(
+      {
+        method: 'POST',
+        url: url,
+        headers: { 'Content-Type': 'application/json' },
+        data: payload
+
+      });
+
+    console.log(response.data);
+    return response.data;
+
+  }
+
+  async enviarNotificacionPorToken(titulo: string, mensaje: string, token: string)
+  {
+    let payload: INotificacion =
+    {
+      notification:
+      {
+        title: titulo,
+        body: mensaje
+      },
+      data:
+      {
+        mensaje: mensaje
+      }
+    }
+    let url = `${this.API}mensaje`;
     console.log(payload);
 
     const response: Respuesta = await Http.request(

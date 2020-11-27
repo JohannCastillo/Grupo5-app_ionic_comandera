@@ -56,7 +56,10 @@ export class RegisterPage implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          this.notificationService.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes', 'jefes');
+          this.notificationService.enviarNotificacion('Nuevo Cliente',
+            `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`,
+            '/home/clientes-pendientes',
+            'jefes');
           UIVisualService.presentToast('Alta exitosa');
           this.cerrar();
           this.presentLoginModal();

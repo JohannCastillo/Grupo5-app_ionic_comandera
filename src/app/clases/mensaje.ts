@@ -8,6 +8,7 @@ interface DatosUsuario
     foto: Imagen,
     nombre: string,
     apellido: string,
+    tipo: string,
     estado: EstadoAceptacion,
     token: string
 }

@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, DoCheck, Input, OnInit, ViewChild } from '
 import { IonContent } from '@ionic/angular';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { MensajesService } from 'src/app/services/mensajes.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-chat',
@@ -17,7 +18,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, DoCheck
 
   @ViewChild(IonContent, { read: IonContent, static: false }) content: IonContent;
 
-  constructor(private mensajesService: MensajesService) { }
+  constructor(private mensajesService: MensajesService, private notificationService: NotificationsService)
+  { }
 
   ngDoCheck(): void
   {
@@ -52,6 +54,21 @@ export class ChatComponent implements OnInit, AfterViewChecked, DoCheck
     console.log(this.mensaje);
     this.mensajes.push(this.mensaje);
     this.mensajesService.crear(this.mensaje);
+
+    switch (this.mensaje.usuario.tipo)
+    {
+      case 'Cliente':
+        this.notificationService.enviarNotificacion('Nuevo Mensaje', this.mensaje.texto,
+          '/home/consultas',
+          'mozos');
+        break;
+      case 'Mozo':
+        let tokenCliente = this.mensajes.find(m => m.usuario.id != this.idUsuario).usuario.token;
+
+        this.notificationService.enviarNotificacionPorToken('Nuevo Mensaje', this.mensaje.texto, tokenCliente);
+        break;
+    }
+
     this.mensaje = null;
   }
 
