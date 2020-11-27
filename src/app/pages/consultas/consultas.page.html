@@ -14,7 +14,7 @@
 
       </ion-label>
       <ion-avatar slot="start">
-        <img [src]="mensaje.usuario.foto.url" />
+        <img *ngIf="mensaje.usuario.foto" [src]="mensaje.usuario.foto.url" />
       </ion-avatar>
     </ion-item>
   </ion-list>

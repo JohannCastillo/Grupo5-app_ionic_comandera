@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
@@ -21,10 +21,15 @@ export class SalaChatPage implements OnInit, DoCheck
   @Input() chatID: string;
   @Input() mesa: number;
 
-  constructor(private mensajeService: MensajesService,
+  constructor(private platform: Platform,
+    private mensajeService: MensajesService,
     private modalController: ModalController,
     private rolService: RolesService) 
   {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.cerrar();
+    });
   }
 
   ngOnInit()
@@ -46,6 +51,8 @@ export class SalaChatPage implements OnInit, DoCheck
   {
     let tipo;
     let estado;
+    let token = this.usuario.tokenNotification ? this.usuario.tokenNotification : null;
+    let foto = this.usuario.foto ? this.usuario.foto : null;
 
     if (this.rolService.isCliente(this.usuario))
     {
@@ -62,11 +69,11 @@ export class SalaChatPage implements OnInit, DoCheck
     {
       let datosUsuario = {
         id: this.usuario.id,
-        foto: this.usuario.foto,
+        foto: foto,
         nombre: this.usuario.nombre,
         apellido: this.usuario.apellido,
         estado: estado,
-        token: this.usuario.tokenNotification,
+        token: token,
         tipo: tipo
       };
 
