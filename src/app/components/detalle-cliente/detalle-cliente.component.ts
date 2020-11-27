@@ -36,6 +36,7 @@ export class DetalleClienteComponent implements OnInit
   rechazarCliente()
   {
     this.cliente.estado = EstadoAceptacion.Rechazado;
+    this.cliente.fechaDeRechazo = Date.now();
     this.clienteService.actualizar(this.cliente)
     console.log(this.cliente)
   }

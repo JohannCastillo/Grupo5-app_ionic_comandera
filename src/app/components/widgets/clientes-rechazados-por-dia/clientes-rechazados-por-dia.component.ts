@@ -4,6 +4,7 @@ import theme from 'highcharts/themes/dark-unica';
 import { Cliente } from 'src/app/clases/cliente';
 import { Pedido } from 'src/app/clases/pedido';
 import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 @Component({
@@ -15,24 +16,24 @@ export class ClientesRechazadosPorDiaComponent implements OnInit
 {
 
   public highchart;
-  public data;
+  public data: Array<any> = [];
   public chart;
   public updateFromInput = false;
   public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
-  public pedidos: Pedido[] = []
+  public clientes: Cliente[] = []
   public semana: Dia[] = [Dia.Domingo, Dia.Lunes, Dia.Martes, Dia.Miercoles, Dia.Jueves,
   Dia.Viernes, Dia.Sabado];
-  private XCategories: Array<any>;
+  private XCategories: Array<any> = [];
 
-  constructor(private rolService: RolesService) { }
+  constructor(private rolService: RolesService, private clienteService: ClienteService) { }
 
   ngOnInit() 
   {
-    /* this.pedidos = PedidoService.pedidos;
-    console.log(this.pedidos); */
+    this.clientes = ClienteService.clientesRechazados;
+    console.log(this.clientes);
     this.procesarDatos();
     this.crearGrafico();
   }
@@ -40,41 +41,35 @@ export class ClientesRechazadosPorDiaComponent implements OnInit
   procesarDatos()
   {
     let anonimos: number[] = [];
-    let InicioDeActividades = new Date(2020,11,1);
+    let InicioDeActividades = new Date(2020, 10, 20);
     let hoy = new Date();
-    console.log('Rechazados por dia',InicioDeActividades.toLocaleString(),'HASTA',hoy.toLocaleString());
-    /* do {
-      console.log(InicioDeActividades.toLocaleDateString());
-      console.log(InicioDeActividades.getTime());
-      console.log(hoy.getTime());
-      InicioDeActividades = this.sumarDias(InicioDeActividades, 1);
-      console.log(InicioDeActividades.getTime());
-    } while (InicioDeActividades.getTime() < hoy.getTime()); */
-    this.XCategories
-/*     this.semana.forEach(dia => 
+    console.log('Rechazados por dia', InicioDeActividades.toLocaleString(), 'HASTA', hoy.toLocaleString());
+    do//una vez por dia
     {
+      console.log(InicioDeActividades.toLocaleDateString());
+      this.XCategories.push(InicioDeActividades.toLocaleDateString());
       let cantidad = 0;
-
-      this.pedidos.forEach(pedido => 
+      this.clientes.forEach(cliente =>
       {
-        let anonimo = this.rolService.isClienteAnonimo(<Cliente>pedido.cliente)
-
-        if (new Date(pedido.fechaInicio).getDay() == dia && anonimo)
+        let fechaRechazo = new Date(cliente.fechaDeRechazo);
+        console.log('Rechazado:', fechaRechazo.toLocaleDateString());
+        console.log('HOY: ', hoy.toLocaleDateString());
+        if (fechaRechazo.toLocaleDateString() == InicioDeActividades.toLocaleDateString())//Si hay un cliente rechazado, 
         {
           cantidad++;
         }
-      });
-      anonimos.push(cantidad);
-    });
-
-    this.data = anonimos;
-    console.log(this.data); */
+      })
+      this.data.push(cantidad);//asigno la cantidad sea 0 o mayor a 0;
+      InicioDeActividades = this.sumarDias(InicioDeActividades, 1);
+    } while (InicioDeActividades.getTime() < hoy.getTime());//mientras sea menor al dia de hoy
+    console.log(this.data);
   }
-       
-sumarDias(fecha, dias){
-  fecha.setDate(fecha.getDate() + dias);
-  return fecha;
-}
+
+  sumarDias(fecha, dias)
+  {
+    fecha.setDate(fecha.getDate() + dias);
+    return fecha;
+  }
 
   crearGrafico()
   {
@@ -95,7 +90,7 @@ sumarDias(fecha, dias){
             text: 'Clientes rechazados por dia'
           },
           xAxis: {
-            categories: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            categories: this.XCategories,
           },
           yAxis: {
             title: {
@@ -128,7 +123,7 @@ sumarDias(fecha, dias){
             marker: {
               symbol: 'square'
             },
-            data: [150,200,500,300]
+            data: this.data
           }]
         };
       }, 0);

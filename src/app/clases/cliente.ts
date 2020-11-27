@@ -14,6 +14,7 @@ export class Cliente extends Usuario
 {
   estado: EstadoAceptacion;
   enListaDeEspera: IListaEspera;
+  fechaDeRechazo:number;
 
   public constructor(init?: Partial<Cliente>)
   {
