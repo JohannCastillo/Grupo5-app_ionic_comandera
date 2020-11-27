@@ -5,6 +5,7 @@ import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-sala-chat',
@@ -21,7 +22,8 @@ export class SalaChatPage implements OnInit, DoCheck
   @Input() mesa: number;
 
   constructor(private mensajeService: MensajesService,
-    private modalController: ModalController) 
+    private modalController: ModalController,
+    private rolService: RolesService) 
   {
   }
 
@@ -42,8 +44,17 @@ export class SalaChatPage implements OnInit, DoCheck
 
   enviar()
   {
+    let tipo;
     this.mensaje = new Mensaje();
 
+    if (this.rolService.isCliente(this.usuario))
+    {
+      tipo = 'Cliente'
+    }
+    else if (this.rolService.isEmpleadoMozo(this.usuario))
+    {
+      tipo = 'Mozo'
+    }
 
     if (this.textoAuxiliar)
     {
@@ -52,7 +63,9 @@ export class SalaChatPage implements OnInit, DoCheck
         foto: this.usuario.foto,
         nombre: this.usuario.nombre,
         apellido: this.usuario.apellido,
-        estado: (<Cliente>this.usuario).estado
+        estado: (<Cliente>this.usuario).estado,
+        token: this.usuario.tokenNotification,
+        tipo: tipo
       };
 
       this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, datosUsuario,
