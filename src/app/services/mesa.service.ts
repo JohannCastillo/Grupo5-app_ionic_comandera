@@ -21,11 +21,10 @@ export class MesaService
     console.log(mesa);
     mesa.isActive = true;
     mesa.isAvailable = true;
+    mesa.id = this.firebase.createPushId();
 
-    return this.firebase.database.ref('mesas')
-      .push(mesa)
-      .then((snapshot) => mesa.id = snapshot.key)
-      .then(() => this.actualizar(mesa))
+    return this.firebase.database.ref('mesas/' + mesa.id)
+      .set(mesa)
       .catch(console.error);
   }
 

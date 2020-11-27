@@ -21,6 +21,8 @@ import { Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { FacebookData, FacebookPicture, LoginProvider, TwitterAuth } from '../interfaces/IProviders';
 import { Imagen } from '../clases/imagen';
+import { LogService } from './log.service';
+import { Sesion } from '../clases/sesion';
 
 const { Http } = Plugins;
 const { FacebookLogin } = Plugins;
@@ -71,7 +73,8 @@ export class AuthService
     private clienteService: ClienteService,
     private empleadoService: EmpleadoService,
     private jefeService: JefeService,
-    private google: GooglePlus)
+    private google: GooglePlus,
+    private logService: LogService)
   {
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
@@ -166,7 +169,6 @@ export class AuthService
 
       if (credential)
       {
-        console.log(credential);
         this.isLogged = true;
         return credential;
       }
@@ -199,6 +201,9 @@ export class AuthService
     {
       const credential = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.isLogged = true;
+      let usuario: firebase.User = await this.afAuth.currentUser;
+
+      this.logService.iniciarSesion(usuario);
       return credential;
     } catch (error)
     {
@@ -299,12 +304,15 @@ export class AuthService
     });
   }
 
-  onLogout()
+  async onLogout()
   {
     try
     {
-      this.afAuth.signOut();
+      let usuario: firebase.User = await this.afAuth.currentUser;
+      this.logService.cerrarSesion(usuario);
+      await this.afAuth.signOut();
       this.isLogged = false;
+
       AuthService.usuario = null;
     } catch (error)
     {

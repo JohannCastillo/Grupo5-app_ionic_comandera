@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
 import { Pedido } from 'src/app/clases/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
+import * as Highcharts from 'highcharts';
 import theme from 'highcharts/themes/dark-unica';
+import highcharts3D from 'highcharts/highcharts-3d';
 
+
+highcharts3D(Highcharts);
 
 @Component({
   selector: 'app-mesas-mas-usadas',
@@ -12,11 +15,11 @@ import theme from 'highcharts/themes/dark-unica';
 })
 export class MesasMasUsadasComponent implements OnInit
 {
+  public Highcharts = Highcharts;
   public highchart;
   public data: { name: string, y: number }[] = [];
   public chart;
   public updateFromInput = false;
-  public Highcharts = Highcharts;
   public chartConstructor = 'chart';
   public chartOptions;
   public chartCallback;
@@ -56,6 +59,7 @@ export class MesasMasUsadasComponent implements OnInit
 
   crearGrafico()
   {
+
     theme(Highcharts);
     this.chartCallback = (chart) =>
     {
@@ -64,10 +68,14 @@ export class MesasMasUsadasComponent implements OnInit
         chart.reflow();
         this.chartOptions = {
           chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
             type: 'pie'
+          },
+          options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25
           },
           title: {
             text: 'Mesas más usadas'
@@ -80,6 +88,8 @@ export class MesasMasUsadasComponent implements OnInit
           },
           plotOptions: {
             pie: {
+              innerSize: 60,
+              depth: 45,
               allowPointSelect: true,
               cursor: 'pointer',
               dataLabels: {
@@ -95,7 +105,7 @@ export class MesasMasUsadasComponent implements OnInit
             name: 'Pedidos',
             colorByPoint: true,
             type: undefined,
-            data: this.data
+            data: this.data //[{K,V},{},{},{}]
           }]
         };
       }, 0);

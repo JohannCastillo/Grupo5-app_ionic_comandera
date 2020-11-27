@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import theme from 'highcharts/themes/dark-unica';
+import { Cliente } from 'src/app/clases/cliente';
 import { Pedido } from 'src/app/clases/pedido';
 import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -32,6 +33,7 @@ export class AnonimosPorDiaComponent implements OnInit
   ngOnInit() 
   {
     this.pedidos = PedidoService.pedidos;
+    console.log(this.pedidos);
     this.procesarDatos();
     this.crearGrafico();
   }
@@ -46,8 +48,9 @@ export class AnonimosPorDiaComponent implements OnInit
 
       this.pedidos.forEach(pedido => 
       {
-        if (new Date(pedido.fechaInicio).getDay() == dia &&
-          this.rolService.isClienteAnonimo(pedido.cliente))
+        let anonimo = this.rolService.isClienteAnonimo(<Cliente>pedido.cliente)
+
+        if (new Date(pedido.fechaInicio).getDay() == dia && anonimo)
         {
           cantidad++;
         }

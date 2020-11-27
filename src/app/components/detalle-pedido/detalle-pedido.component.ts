@@ -27,6 +27,11 @@ export class DetallePedidoComponent implements OnInit
 
   ngOnInit() 
   {
+
+  }
+
+  async crearMenu()
+  {
     console.log(this.pedido);
     let mesa = null;
 
@@ -68,10 +73,8 @@ export class DetallePedidoComponent implements OnInit
 
   async mostrarOpciones()
   {
+    this.crearMenu();
     UIVisualService.presentActionSheet(this.rol, this.pedido.estado, this.botonesActionSheet)
-    UIVisualService.loading();
   }
-
-
 
 }

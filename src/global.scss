@@ -195,7 +195,19 @@
 }
 
 .sc-ion-alert-md-h {
+  --color: var(--ion-color-light) !important;
   --background: var(--ion-color-dark) !important;
+  color: var(--ion-color-light) !important;
+}
+
+.alert-input.sc-ion-alert-md {
+  color: var(--ion-color-light) !important;
+}
+
+.alert-title.sc-ion-alert-md {
+  color: var(--ion-color-light) !important;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .alert-button-inner.sc-ion-alert-md{

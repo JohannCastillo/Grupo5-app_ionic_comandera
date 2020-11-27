@@ -19,6 +19,14 @@ export class Mesa implements IEscaneable
     isAvailable: boolean;
     isActive: boolean;
 
+    constructor(init?: Partial<Mesa>)
+    {
+        if (init)
+        {
+            Object.assign(this, init);
+        }
+    }
+
     public static CrearMesa(id: string, numero: number, comensales: number, tipo: TipoMesa,
         foto: Imagen, codigoQR: string, isAvailable: boolean,
         isActive: boolean)

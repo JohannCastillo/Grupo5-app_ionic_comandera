@@ -62,10 +62,6 @@ export class LoginPage implements OnInit
 
       await clientePromise, await empleadoPromise, await jefePromise
 
-      console.log(cliente)
-      console.log(empleado)
-      console.log(jefe)
-
       if (cliente)
       {
         AuthService.usuario = cliente
