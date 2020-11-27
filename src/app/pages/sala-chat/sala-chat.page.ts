@@ -1,9 +1,11 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
+import { Cliente } from 'src/app/clases/cliente';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-sala-chat',
@@ -19,9 +21,15 @@ export class SalaChatPage implements OnInit, DoCheck
   @Input() chatID: string;
   @Input() mesa: number;
 
-  constructor(private mensajeService: MensajesService,
-    private modalController: ModalController) 
+  constructor(private platform: Platform,
+    private mensajeService: MensajesService,
+    private modalController: ModalController,
+    private rolService: RolesService) 
   {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.cerrar();
+    });
   }
 
   ngOnInit()
@@ -41,11 +49,35 @@ export class SalaChatPage implements OnInit, DoCheck
 
   enviar()
   {
-    this.mensaje = new Mensaje();
+    let tipo;
+    let estado;
+    let token = this.usuario.tokenNotification ? this.usuario.tokenNotification : null;
+    let foto = this.usuario.foto ? this.usuario.foto : null;
+
+    if (this.rolService.isCliente(this.usuario))
+    {
+      tipo = 'Cliente'
+      estado = (<Cliente>this.usuario).estado;
+    }
+    else if (this.rolService.isEmpleadoMozo(this.usuario))
+    {
+      tipo = 'Mozo'
+      estado = null;
+    }
 
     if (this.textoAuxiliar)
     {
-      this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, this.usuario,
+      let datosUsuario = {
+        id: this.usuario.id,
+        foto: foto,
+        nombre: this.usuario.nombre,
+        apellido: this.usuario.apellido,
+        estado: estado,
+        token: token,
+        tipo: tipo
+      };
+
+      this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, datosUsuario,
         new Date().toString(), this.chatID, this.mesa);
       this.textoAuxiliar = null;
     }

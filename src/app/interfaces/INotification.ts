@@ -10,6 +10,7 @@ export interface INotificacion
 {
     notification: NotificationMessagePayload;
     data?: any;
+    token?: string;
 }
 
 interface NotificationMessagePayload

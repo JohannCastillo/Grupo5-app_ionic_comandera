@@ -78,11 +78,9 @@ export class NotificationsService
       'registration',
       (token: PushNotificationToken) =>
       {
-        if (this.nuevoToken(AuthService.usuario, token.value))
-        {
-          AuthService.usuario.tokenNotification.push(token.value);
-          this.actualizarUsuario(AuthService.usuario);
-        }
+        console.log(token);
+        AuthService.usuario.tokenNotification = token.value;
+        this.actualizarUsuario(AuthService.usuario);
       },
     );
 
@@ -160,8 +158,11 @@ export class NotificationsService
 
   actualizarUsuario(usuario: Usuario)
   {
+    console.log(usuario);
+
     if (this.rolesService.isCliente(usuario))
     {
+      console.log("Cliente con token");
       this.clienteService.actualizar(usuario as Cliente)
     }
     else if (this.rolesService.isEmpleado(usuario))
@@ -174,6 +175,7 @@ export class NotificationsService
     }
 
   }
+
   async enviarNotificacion(titulo: string, mensaje: string, ruta: string, topic: string)
   {
     let payload: INotificacion =
@@ -189,6 +191,34 @@ export class NotificationsService
       }
     }
     let url = `${this.API}${topic}`;
+    console.log(payload);
+
+    const response: Respuesta = await Http.request(
+      {
+        method: 'POST',
+        url: url,
+        headers: { 'Content-Type': 'application/json' },
+        data: payload
+
+      });
+
+    console.log(response.data);
+    return response.data;
+
+  }
+
+  async enviarNotificacionPorToken(titulo: string, mensaje: string, token: string)
+  {
+    let payload: INotificacion =
+    {
+      notification:
+      {
+        title: titulo,
+        body: mensaje
+      },
+      token: token
+    }
+    let url = `${this.API}mensaje`;
     console.log(payload);
 
     const response: Respuesta = await Http.request(

@@ -57,16 +57,16 @@ export class ConsultasPage implements OnInit, DoCheck
     {
       for (const mensajeNuevo of mensajes) 
       {
-        let usuario = (<Cliente>mensajeNuevo.usuario);
+        let usuario = mensajeNuevo.usuario;
         let mensaje = this.mensajes ? this.mensajes.find(m => m.chatId == mensajeNuevo.chatId) : null;
 
         if (!mensaje &&
           usuario.estado == EstadoAceptacion.Aceptado ||
-          usuario.estado == EstadoAceptacion.Anonimo)
+          usuario.estado == EstadoAceptacion.Anonimo) // Unico o primer mensaje del chat
         {
           this.mensajes.push(mensajeNuevo);
         }
-        else if (mensaje)
+        else if (mensaje) // Se actualiza mensaje a mostrar en previsualizacion
         {
           let i = this.mensajes.indexOf(mensaje)
           this.mensajes[i] = mensajeNuevo;

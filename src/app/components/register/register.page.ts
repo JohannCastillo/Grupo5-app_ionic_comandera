@@ -46,17 +46,23 @@ export class RegisterPage implements OnInit
     {
       UIVisualService.loading(8000);
       // Se guarda imagen en DB y Storage
-      const imagenGuardada = await this.imagenService.crearUnaImagen(
-        this.auxiliarFoto,
-        '/clientes'
-      )
-      this.cliente.foto = imagenGuardada;
+      if (this.auxiliarFoto)
+      {
+        const imagenGuardada = await this.imagenService.crearUnaImagen(
+          this.auxiliarFoto,
+          '/clientes'
+        )
+        this.cliente.foto = imagenGuardada;
+      }
 
       this.authService
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          this.notificationService.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes', 'jefes');
+          this.notificationService.enviarNotificacion('Nuevo Cliente',
+            `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`,
+            '/home/clientes-pendientes',
+            'jefes');
           UIVisualService.presentToast('Alta exitosa');
           this.cerrar();
           this.presentLoginModal();
@@ -70,17 +76,17 @@ export class RegisterPage implements OnInit
   }
   async onScanDNI()
   {
-    let barcodeQR: string
+    let barcodeQR: string;
     this.codigoQRService.escanear("Escanee su DNI", "PDF_417").then(obj =>
     {
-      barcodeQR = obj.text
-      let barcodeQRData = barcodeQR.split("@")
+      barcodeQR = obj.text;
+      let barcodeQRData = barcodeQR.split("@");
 
-      this.cliente.apellido = barcodeQRData[1]
-      this.cliente.nombre = barcodeQRData[2]
-      this.cliente.dni = barcodeQRData[4]
+      this.cliente.apellido = barcodeQRData[1];
+      this.cliente.nombre = barcodeQRData[2];
+      this.cliente.dni = barcodeQRData[4];
 
-      console.log(this.cliente)
+      console.log(this.cliente);
     })
   }
 

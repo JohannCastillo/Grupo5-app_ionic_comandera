@@ -12,6 +12,7 @@ export class RolesService
 {
   isCliente(usuario: Usuario): boolean
   {
+    console.log(usuario);
     return usuario instanceof Cliente;
   }
 
