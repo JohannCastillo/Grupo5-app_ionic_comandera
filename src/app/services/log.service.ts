@@ -11,6 +11,7 @@ import firebase from 'firebase';
 export class LogService
 {
   public static sesionActual: Sesion;
+  public static sesiones: Sesion[];
 
   constructor(public firebase: AngularFireDatabase) { }
 
@@ -55,7 +56,23 @@ export class LogService
 
   leer(): Promise<Sesion[]>
   {
-    throw new Error('Method not implemented.');
+    let sesiones: Sesion[] = [];
+
+    const fetch = new Promise<Sesion[]>(resolve =>
+    {
+      this.firebase.database.ref('sesiones').on('value', (snapshot) =>
+      {
+        sesiones = [];
+        snapshot.forEach((child) =>
+        {
+          var data: Sesion = child.val();
+          sesiones.push(new Sesion(data as Sesion));
+        });
+        LogService.sesiones = sesiones;
+        resolve(LogService.sesiones);
+      })
+    });
+    return fetch;
   }
   borrar(elemento: Sesion): Promise<any>
   {

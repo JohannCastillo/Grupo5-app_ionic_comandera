@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
 import { INotificacion } from 'src/app/interfaces/INotification';
@@ -28,6 +28,7 @@ export class HomePage implements OnInit
   icono = '/assets/img/icono.png';
 
   constructor(
+    private platform: Platform,
     private rolService: RolesService,
     private authService: AuthService,
     private router: Router,
@@ -36,6 +37,10 @@ export class HomePage implements OnInit
     private notificationService: NotificationsService
   ) 
   {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.authService.onLogout();
+    });
   }
 
   ngOnInit()

@@ -12,7 +12,7 @@
                     *ngIf="i == 0 || mensaje.usuario.id != mensajes[i-1].usuario.id" color="light">
 
             <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
-                      *ngIf="idUsuario != mensaje.usuario.id">
+                      *ngIf="idUsuario == mensaje.usuario.id">
               <ion-avatar>
                 <img *ngIf="!mensaje.usuario.foto" src="./assets/img/no-avatar.jpg" />
                 <img *ngIf="mensaje.usuario.foto" [src]="mensaje.usuario.foto.url" />
@@ -22,7 +22,7 @@
             </ion-chip>
 
             <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
-                      *ngIf="idUsuario == mensaje.usuario.id">
+                      *ngIf="idUsuario != mensaje.usuario.id">
               <ion-avatar>
                 <img *ngIf="!mensaje.usuario.foto" src="./assets/img/no-avatar.jpg" />
                 <img *ngIf="mensaje.usuario.foto" [src]="mensaje.usuario.foto.url" />

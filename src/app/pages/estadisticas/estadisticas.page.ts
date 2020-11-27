@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Empleado, TipoEmpleado } from 'src/app/clases/empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { LogService } from 'src/app/services/log.service';
 
 export interface Serie
 {
@@ -25,12 +27,14 @@ export enum Dia
 })
 export class EstadisticasPage implements OnInit
 {
+  mozos: Empleado[] = [];
 
-  constructor(private empleadosService: EmpleadoService) { }
+  constructor(private logService: LogService) { }
 
-  async ngOnInit()
+  ngOnInit()
   {
-    await this.empleadosService.leer();
+    this.mozos = EmpleadoService.empleados.filter(e => e.tipo == TipoEmpleado.Mozo);
+    this.logService.leer();
   }
 
 }

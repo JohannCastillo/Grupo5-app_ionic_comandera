@@ -45,6 +45,7 @@ import { ClientesPorDiaComponent } from './widgets/clientes-por-dia/clientes-por
 import { AnonimosPorDiaComponent } from './widgets/anonimos-por-dia/anonimos-por-dia.component';
 import { MozoMayorPedidoComponent } from './widgets/mozo-mayor-pedido/mozo-mayor-pedido.component';
 import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pedido.component';
+import { IngresosClientesComponent } from './widgets/ingresos-clientes/ingresos-clientes.component';
 import { ClientesRechazadosPorDiaComponent } from "./widgets/clientes-rechazados-por-dia/clientes-rechazados-por-dia.component";
 import { PedidosPorDiaComponent } from "./widgets/pedidos-por-dia/pedidos-por-dia.component";
 import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por-dia.component";
@@ -96,6 +97,7 @@ import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por
     ClientesPorDiaComponent,
     MozoMayorPedidoComponent,
     PlatoMasPedidoComponent,
+    IngresosClientesComponent,
     ClientesRechazadosPorDiaComponent,
     PedidosPorDiaComponent,
     ReservasPorDiaComponent
@@ -154,6 +156,7 @@ import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por
     ClientesPorDiaComponent,
     MozoMayorPedidoComponent,
     PlatoMasPedidoComponent,
+    IngresosClientesComponent,
     ClientesRechazadosPorDiaComponent,
     PedidosPorDiaComponent,
     ReservasPorDiaComponent
