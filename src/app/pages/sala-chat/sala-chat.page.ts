@@ -1,5 +1,6 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
+import { Cliente } from 'src/app/clases/cliente';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -43,9 +44,18 @@ export class SalaChatPage implements OnInit, DoCheck
   {
     this.mensaje = new Mensaje();
 
+
     if (this.textoAuxiliar)
     {
-      this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, this.usuario,
+      let datosUsuario = {
+        id: this.usuario.id,
+        foto: this.usuario.foto,
+        nombre: this.usuario.nombre,
+        apellido: this.usuario.apellido,
+        estado: (<Cliente>this.usuario).estado
+      };
+
+      this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, datosUsuario,
         new Date().toString(), this.chatID, this.mesa);
       this.textoAuxiliar = null;
     }

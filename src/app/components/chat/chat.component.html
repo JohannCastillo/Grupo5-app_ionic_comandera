@@ -14,7 +14,8 @@
             <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
                       *ngIf="idUsuario != mensaje.usuario.id">
               <ion-avatar>
-                <img src="./assets/img/no-avatar.jpg" />
+                <img *ngIf="!mensaje.usuario.foto" src="./assets/img/no-avatar.jpg" />
+                <img *ngIf="mensaje.usuario.foto" [src]="mensaje.usuario.foto.url" />
               </ion-avatar>
               <ion-label *ngIf="mensaje.mesa">Mesa : {{mensaje.mesa}} - </ion-label>
               <ion-label>{{mensaje.fecha | date: 'shortTime'}}</ion-label>
@@ -23,7 +24,8 @@
             <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
                       *ngIf="idUsuario == mensaje.usuario.id">
               <ion-avatar>
-                <img src="./assets/img/no-avatar.jpg" />
+                <img *ngIf="!mensaje.usuario.foto" src="./assets/img/no-avatar.jpg" />
+                <img *ngIf="mensaje.usuario.foto" [src]="mensaje.usuario.foto.url" />
               </ion-avatar>
               <ion-label>{{mensaje.fecha |  date: 'shortTime'}}</ion-label>
             </ion-chip>
