@@ -45,14 +45,17 @@ export class SalaChatPage implements OnInit, DoCheck
   enviar()
   {
     let tipo;
+    let estado;
 
     if (this.rolService.isCliente(this.usuario))
     {
       tipo = 'Cliente'
+      estado = (<Cliente>this.usuario).estado;
     }
     else if (this.rolService.isEmpleadoMozo(this.usuario))
     {
       tipo = 'Mozo'
+      estado = null;
     }
 
     if (this.textoAuxiliar)
@@ -62,7 +65,7 @@ export class SalaChatPage implements OnInit, DoCheck
         foto: this.usuario.foto,
         nombre: this.usuario.nombre,
         apellido: this.usuario.apellido,
-        estado: (<Cliente>this.usuario).estado,
+        estado: estado,
         token: this.usuario.tokenNotification,
         tipo: tipo
       };
