@@ -62,11 +62,11 @@ export class ConsultasPage implements OnInit, DoCheck
 
         if (!mensaje &&
           usuario.estado == EstadoAceptacion.Aceptado ||
-          usuario.estado == EstadoAceptacion.Anonimo)
+          usuario.estado == EstadoAceptacion.Anonimo) // Unico o primer mensaje del chat
         {
           this.mensajes.push(mensajeNuevo);
         }
-        else if (mensaje)
+        else if (mensaje) // Se actualiza mensaje a mostrar en previsualizacion
         {
           let i = this.mensajes.indexOf(mensaje)
           this.mensajes[i] = mensajeNuevo;
