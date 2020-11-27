@@ -1,30 +1,28 @@
-import { createElementCssSelector } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import theme from 'highcharts/themes/dark-unica';
 
-import { Empleado, TipoEmpleado } from 'src/app/clases/empleado';
+import { Empleado } from 'src/app/clases/empleado';
 import { Pedido } from 'src/app/clases/pedido';
 import { Dia } from 'src/app/pages/estadisticas/estadisticas.page';
-import { EmpleadoService } from 'src/app/services/empleado.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 
-// Highcharts.setOptions({
-//   colors: Highcharts.map(Highcharts.getOptions().colors, function (color)
-//   {
-//     return {
-//       radialGradient: {
-//         cx: 0.5,
-//         cy: 0.3,
-//         r: 0.7
-//       },
-//       stops: [
-//         [0, color],
-//         [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
-//       ]
-//     };
-//   })
-// });
+Highcharts.setOptions({
+  colors: Highcharts.map(Highcharts.getOptions().colors, function (color)
+  {
+    return {
+      radialGradient: {
+        cx: 0.5,
+        cy: 0.3,
+        r: 0.7
+      },
+      stops: [
+        [0, color],
+        [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+      ]
+    };
+  })
+});
 
 @Component({
   selector: 'app-mozo-mayor-pedido',
@@ -42,7 +40,7 @@ export class MozoMayorPedidoComponent implements OnInit
   public chartOptions;
   public chartCallback;
   public pedidos: Pedido[] = [];
-  public mozos: Empleado[] = [];
+  @Input() public mozos: Empleado[];
   public semana: Dia[] = [Dia.Domingo, Dia.Lunes, Dia.Martes, Dia.Miercoles, Dia.Jueves,
   Dia.Viernes, Dia.Sabado];
 
@@ -51,7 +49,6 @@ export class MozoMayorPedidoComponent implements OnInit
   ngOnInit() 
   {
     this.pedidos = PedidoService.pedidos;
-    this.mozos = EmpleadoService.empleados.filter(e => e.tipo == TipoEmpleado.Mozo);
     console.log(this.mozos);
     this.procesarDatos();
     this.crearGrafico();

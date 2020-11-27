@@ -169,6 +169,9 @@ export class AuthService
 
       if (credential)
       {
+        // Se inicia el log de la sesión
+        let usuario: firebase.User = await this.afAuth.currentUser;
+        this.logService.iniciarSesion(usuario);
         this.isLogged = true;
         return credential;
       }
@@ -188,6 +191,12 @@ export class AuthService
     {
       const credential = await this.afAuth.signInAnonymously();
       this.isLogged = true;
+
+      // Se inicia el log de la sesión
+      let usuario: firebase.User = await this.afAuth.currentUser;
+      this.logService.iniciarSesion(usuario);
+
+      // Se devuelve credencial de Firebase
       return credential.user.uid;
     } catch (error)
     {
@@ -201,9 +210,12 @@ export class AuthService
     {
       const credential = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.isLogged = true;
-      let usuario: firebase.User = await this.afAuth.currentUser;
 
+      // Se inicia el log de la sesión
+      let usuario: firebase.User = await this.afAuth.currentUser;
       this.logService.iniciarSesion(usuario);
+
+      // Se devuelve credencial de Firebase
       return credential;
     } catch (error)
     {
@@ -309,11 +321,16 @@ export class AuthService
     try
     {
       let usuario: firebase.User = await this.afAuth.currentUser;
-      this.logService.cerrarSesion(usuario);
-      await this.afAuth.signOut();
-      this.isLogged = false;
+      if (usuario)
+      {
+        console.log("Logout");
+        // Se finaliza el log de la sesión
+        this.logService.cerrarSesion(usuario);
+        await this.afAuth.signOut();
+        this.isLogged = false;
 
-      AuthService.usuario = null;
+        AuthService.usuario = null;
+      }
     } catch (error)
     {
       console.log('Logout failed', error);

@@ -18,7 +18,8 @@ export class ProfileGuardService implements CanActivate
 
   constructor(private router: Router,
     private rolesService: RolesService,
-    private UIVisual: UIVisualService) { }
+    private UIVisual: UIVisualService,
+    private authService: AuthService) { }
 
   /**
   * Método para validar navegación según perfil del Usuario
@@ -46,6 +47,7 @@ export class ProfileGuardService implements CanActivate
             this.rolesService.isClienteRechazado(this.usuario))
           {
             activar = false;
+            this.authService.onLogout();
             UIVisualService.presentToast(`Usted está en estado ${(<Cliente>this.usuario).estado}`)
           }
           else

@@ -10,6 +10,7 @@ import { NotificationsService } from './services/notifications.service';
 import { EncuestaService } from './services/encuesta.service';
 import { PedidoService } from './services/pedido.service';
 import { ProductoService } from './services/producto.service';
+import { EmpleadoService } from './services/empleado.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,8 @@ export class AppComponent
     private notificationService: NotificationsService,
     private pedidosService: PedidoService,
     private productoService: ProductoService,
-    private encuestaService: EncuestaService
+    private encuestaService: EncuestaService,
+    private empleadosService: EmpleadoService
   )
   {
     this.initializeApp();
@@ -38,6 +40,7 @@ export class AppComponent
   {
     this.pedidosService.leer();
     this.productoService.traerTodos();
+    this.empleadosService.leer();
     this.encuestaService.leer();
     this.platform.pause.subscribe(async () =>
     {

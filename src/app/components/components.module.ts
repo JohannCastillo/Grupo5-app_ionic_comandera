@@ -45,6 +45,7 @@ import { ClientesPorDiaComponent } from './widgets/clientes-por-dia/clientes-por
 import { AnonimosPorDiaComponent } from './widgets/anonimos-por-dia/anonimos-por-dia.component';
 import { MozoMayorPedidoComponent } from './widgets/mozo-mayor-pedido/mozo-mayor-pedido.component';
 import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pedido.component';
+import { IngresosClientesComponent } from './widgets/ingresos-clientes/ingresos-clientes.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pe
     AnonimosPorDiaComponent,
     ClientesPorDiaComponent,
     MozoMayorPedidoComponent,
-    PlatoMasPedidoComponent
+    PlatoMasPedidoComponent,
+    IngresosClientesComponent
   ],
   imports: [
     CommonModule,
@@ -147,7 +149,8 @@ import { PlatoMasPedidoComponent } from './widgets/plato-mas-pedido/plato-mas-pe
     AnonimosPorDiaComponent,
     ClientesPorDiaComponent,
     MozoMayorPedidoComponent,
-    PlatoMasPedidoComponent
+    PlatoMasPedidoComponent,
+    IngresosClientesComponent
   ]
 })
 export class ComponentsModule { }
