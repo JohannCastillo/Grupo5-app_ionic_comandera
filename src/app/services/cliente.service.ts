@@ -9,6 +9,7 @@ import { Imagen } from '../clases/imagen';
 export class ClienteService
 {
   public static clientes: Cliente[] = [];
+  public static clientesRechazados : Cliente[] = [];
 
   constructor(public firebase: AngularFireDatabase) { }
 
@@ -85,6 +86,30 @@ export class ClienteService
         ClienteService.clientes = clientes.filter(e => e.isActive);
 
         resolve(ClienteService.clientes);
+      });
+    });
+  }
+
+  public leerRechazados()
+  {
+    let clientes: Cliente[] = [];
+    console.info("Fetch de todos los clientes");
+    let rechazados;
+    return new Promise<Cliente[]>((resolve) =>
+    {
+      this.firebase.database.ref("clientes").on("value", (snapshot) =>
+      {
+        clientes = [];
+
+        snapshot.forEach((child) =>
+        {
+          var data= new Cliente(child.val());
+          clientes.push(data);
+        });
+        
+        ClienteService.clientesRechazados = clientes.filter(e => e.estado == EstadoAceptacion.Rechazado);
+
+        resolve(rechazados);
       });
     });
   }
