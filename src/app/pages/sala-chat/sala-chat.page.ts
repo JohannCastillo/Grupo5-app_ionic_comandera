@@ -52,7 +52,8 @@ export class SalaChatPage implements OnInit, DoCheck
         foto: this.usuario.foto,
         nombre: this.usuario.nombre,
         apellido: this.usuario.apellido,
-        estado: (<Cliente>this.usuario).estado
+        estado: (<Cliente>this.usuario).estado,
+        token: this.usuario.tokenNotification
       };
 
       this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, datosUsuario,

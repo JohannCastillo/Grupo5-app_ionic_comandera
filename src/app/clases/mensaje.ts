@@ -8,7 +8,8 @@ interface DatosUsuario
     foto: Imagen,
     nombre: string,
     apellido: string,
-    estado: EstadoAceptacion
+    estado: EstadoAceptacion,
+    token: string
 }
 
 export class Mensaje

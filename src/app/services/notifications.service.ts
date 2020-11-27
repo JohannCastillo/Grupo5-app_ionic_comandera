@@ -78,11 +78,9 @@ export class NotificationsService
       'registration',
       (token: PushNotificationToken) =>
       {
-        if (this.nuevoToken(AuthService.usuario, token.value))
-        {
-          AuthService.usuario.tokenNotification.push(token.value);
-          this.actualizarUsuario(AuthService.usuario);
-        }
+        console.log(token);
+        AuthService.usuario.tokenNotification = token.value;
+        this.actualizarUsuario(AuthService.usuario);
       },
     );
 
@@ -160,8 +158,11 @@ export class NotificationsService
 
   actualizarUsuario(usuario: Usuario)
   {
+    console.log(usuario);
+
     if (this.rolesService.isCliente(usuario))
     {
+      console.log("Cliente con token");
       this.clienteService.actualizar(usuario as Cliente)
     }
     else if (this.rolesService.isEmpleado(usuario))
