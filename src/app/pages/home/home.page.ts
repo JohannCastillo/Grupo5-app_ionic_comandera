@@ -26,6 +26,7 @@ export class HomePage implements OnInit
   // Código de prueba
   usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
+  muteado: boolean = false;
 
   constructor(
     private platform: Platform,
@@ -34,7 +35,8 @@ export class HomePage implements OnInit
     private router: Router,
     private notifications: NotificationsService,
     private UIVisual: UIVisualService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private audioService: AudioService
   ) 
   {
     this.platform.backButton.subscribeWithPriority(10, () =>
@@ -67,4 +69,17 @@ export class HomePage implements OnInit
     UIVisualService.verEncuesta();
   }
 
+  desactivarSonido()
+  {
+    this.muteado = true;
+  }
+
+  activarSonido()
+  {
+    this.platform.pause.subscribe(() =>
+    {
+      this.audioService.play('cierre');
+    });
+    this.muteado = false;
+  }
 }

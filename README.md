@@ -133,3 +133,22 @@ Sistema de gestión gastronómica
 ![Sprint_5](https://firebasestorage.googleapis.com/v0/b/web-apps---practica.appspot.com/o/readme%2Fsprint_5.png?alt=media&token=8ca3ed3f-fe28-49f1-b92e-1cbc5076c421 "Sprint 5")
 
 ![Push_Notifications](https://firebasestorage.googleapis.com/v0/b/web-apps---practica.appspot.com/o/readme%2FPush_Notifications.png?alt=media&token=6348d06a-66a8-4afb-8ecd-03e0d8348382 "Push Notifications")
+
+## :information_source: Sprint Final : Fecha de entrega 27/11 
+
+- Alejandro Planes
+  - Login Redes Sociales
+  - Procesamiento de estadisticas (Highcharts)
+  - Gráficos estadísticos (Mesas, Clientes, Mozos)
+  - Servivio de logs
+- Federico Vera
+  - Servicio de notificaciones por Mail
+  - Implementación de Servicio Mail
+  - Gráficos estadísticos (Reservas)
+  - Push notifications chat
+
+![Sprint_Final](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps---v2.appspot.com/o/readme%2Fsprint_final.png?alt=media&token=6f255ca4-5689-4aec-add5-29c1fb8d5c49 "Sprint Final")
+
+![Logins_Redes](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps---v2.appspot.com/o/readme%2Fsprint_final_1.png?alt=media&token=8dc8d67d-9a5a-4248-bdd1-efc63f338020 "Login Redes Sociales")
+
+![Logins_Estadistica](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps---v2.appspot.com/o/readme%2Fsprint_final_2.png?alt=media&token=bc1144b6-1c7a-48d6-aad4-eed80694f681 "Logins y Estadistica")

@@ -15,8 +15,11 @@
                       (click)="verEncuestaEmpleado()">
         <ion-icon name="create-sharp"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="success" translucent="true" [routerLink]="['/home/tab1']">
-        <ion-icon name="triangle"></ion-icon>
+      <ion-fab-button *ngIf="!muteado" (click)="desactivarSonido()" color="light" translucent="true">
+        <ion-icon name="volume-mute-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="muteado" (click)="activarSonido()" color="light" translucent="true">
+        <ion-icon name="volume-high-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
