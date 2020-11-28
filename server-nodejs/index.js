@@ -128,6 +128,21 @@ app.post('/mozos', function (req, res) {
         });
 });
 
+app.post('/mensaje', function (req, res) {
+    const options = notification_options;
+    const payload = req.body;
+
+    console.log(payload);
+
+    admin.messaging().send(payload)
+        .then(response => {
+            res.status(200).send("Notification sent successfully")
+        })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
 
 app.post('/email', function (req, res) {
     const destinatario = req.body.email;
