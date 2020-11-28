@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { LoadingController, ModalController, Platform } from '@ionic/angular';
+import { LoadingController, ModalController, Platform, ViewDidEnter } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
@@ -12,7 +12,7 @@ import { RolesService } from 'src/app/services/roles.service';
   templateUrl: './sala-chat.page.html',
   styleUrls: ['./sala-chat.page.scss'],
 })
-export class SalaChatPage implements OnInit, DoCheck
+export class SalaChatPage implements OnInit, DoCheck, ViewDidEnter
 {
   usuario: Usuario = AuthService.usuario;
   mensaje: Mensaje;
@@ -30,6 +30,11 @@ export class SalaChatPage implements OnInit, DoCheck
     {
       this.cerrar();
     });
+  }
+
+  ionViewDidEnter(): void
+  {
+    this.mensajes = MensajesService.mensajes.filter(mensaje => mensaje.chatId == this.chatID);
   }
 
   ngOnInit()
