@@ -1,0 +1,101 @@
+<app-header titulo="Datos personales"></app-header>
+
+<ion-content class="ion-padding fondo">
+
+  <div class="contenido">
+
+    <form #formulario="ngForm">
+
+      <ion-list mode="ios">
+
+        <ion-list-header color="dark" class="ion-padding">
+          <ion-item color="dark">
+            <img *ngIf="usuario.foto" [src]="usuario.foto.url | safe: 'url'" alt="Imagen de usuario">
+            <ion-label *ngIf="!usuario.foto">Sin foto</ion-label>
+          </ion-item>
+        </ion-list-header>
+
+        <ion-item color="dark">
+          <ion-label position="fixed">Nombre</ion-label>
+          <ion-input type="text" name="nombre" [(ngModel)]="usuario.nombre" [placeholder]="usuario.nombre"
+                     [readonly]="!editar">
+          </ion-input>
+        </ion-item>
+
+        <ion-item color="dark">
+          <ion-label position="fixed">Apellido</ion-label>
+          <ion-input type="text" name="apellido" [(ngModel)]="usuario.apellido" [placeholder]="usuario.apellido"
+                     [readonly]="!editar">
+          </ion-input>
+        </ion-item>
+
+        <ion-item color="dark">
+          <ion-label position="fixed">DNI</ion-label>
+          <ion-input type="number" name="dni" [(ngModel)]="usuario.dni" [placeholder]="usuario.dni"
+                     [readonly]="!editar">
+          </ion-input>
+        </ion-item>
+
+        <ion-item color="dark" *ngIf="this.rolService.isEmpleado(usuario) || 
+                                      this.rolService.isJefe(usuario)">
+          <ion-label position="fixed">CUIL</ion-label>
+          <ion-input type="string" name="cuil" [(ngModel)]="usuario.cuil" [placeholder]="usuario.cuil"
+                     [readonly]="!editar">
+          </ion-input>
+        </ion-item>
+
+        <ion-item color="dark" *ngIf="this.rolService.isCliente(usuario)">
+          <ion-label position="fixed">Estado</ion-label>
+          <ion-input type="text" name="estado" [(ngModel)]="usuario.estado" [placeholder]="usuario.estado"
+                     [disabled]="true">
+          </ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-item color="dark" *ngIf="this.rolService.isEmpleado(usuario)">
+        <ion-label position="fixed">Rol</ion-label>
+        <ion-input type="text" name="tipoUsuario" [(ngModel)]="usuario.tipo" [placeholder]="usuario.tipo"
+                   [disabled]="true">
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="dark" *ngIf="this.rolService.isJefe(usuario)">
+        <ion-label position="fixed">Rol</ion-label>
+        <ion-input type="text" name="tipoJefe" [(ngModel)]="usuario.tipo" [placeholder]="usuario.tipo"
+                   [disabled]="true">
+        </ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="imgPreview" color="dark">
+        <img [src]="imgPreview | safe: 'url'" alt="Imagen de usuario">
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark" [disabled]="!editar">
+          Subir foto
+          <ion-icon slot="start" name="camera"></ion-icon>
+        </ion-button>
+
+      </ion-item>
+
+    </form>
+
+
+  </div>
+
+  <ion-button (click)="habilitar()" color="tertiary" expand="block" type="submit" size="large"
+              *ngIf="!editar">
+    Editar
+  </ion-button>
+  <ion-button (click)="guardar()" color="success" expand="block" type="submit" size="large"
+              *ngIf="editar">
+    Guardar
+  </ion-button>
+  <ion-button (click)="habilitar()" color="medium" expand="block" type="submit" size="large"
+              *ngIf="editar">
+    Cancelar
+  </ion-button>
+
+
+</ion-content>

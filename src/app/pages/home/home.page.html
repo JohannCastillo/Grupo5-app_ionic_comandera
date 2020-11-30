@@ -11,7 +11,7 @@
       <ion-fab-button color="tertiary" translucent="true">
         <ion-icon name="log-out" (click)="cerrarSesion()"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="rolService.isEmpleado(usuario)" color="light" translucent="true"
+      <ion-fab-button *ngIf="rolService.isEmpleado(usuario)" color="primary" translucent="true"
                       (click)="verEncuestaEmpleado()">
         <ion-icon name="create-sharp"></ion-icon>
       </ion-fab-button>
@@ -49,6 +49,7 @@
       <ion-label>Reservas</ion-label>
     </ion-tab-button>
 
+
     <ion-tab-button tab="menu-pedidos" *ngIf="rolService.isEmpleado(usuario)">
       <ion-icon name="fast-food"></ion-icon>
       <ion-label>Pedidos</ion-label>
@@ -56,12 +57,17 @@
 
     <ion-tab-button tab="lista-de-espera" *ngIf="rolService.isEmpleadoMozo(usuario)">
       <ion-icon name="hourglass-sharp"></ion-icon>
-      <ion-label>Lista de espera</ion-label>
+      <ion-label>Listado</ion-label>
     </ion-tab-button>
 
     <ion-tab-button *ngIf="rolService.isJefe(usuario)" (click)="mostrarMenu()">
       <ion-icon name="menu"></ion-icon>
       <ion-label>Menu</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="datos-usuario" color="success">
+      <ion-icon name="person-circle-sharp"></ion-icon>
+      <ion-label>Perfil</ion-label>
     </ion-tab-button>
 
 
