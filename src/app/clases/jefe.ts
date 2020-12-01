@@ -3,7 +3,7 @@ import { Usuario } from './usuario';
 
 export enum TipoJefe
 {
-  Dueno = 'Dueno',
+  Dueno = 'Dueño',
   Supervisor = 'Supervisor',
 }
 

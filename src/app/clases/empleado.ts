@@ -5,7 +5,8 @@ export enum TipoEmpleado
 {
   Bartender = 'Bartender',
   Cocinero = 'Cocinero',
-  Mozo = 'Mozo'
+  Mozo = 'Mozo',
+  Delivery = 'Delivery'
 }
 
 export class Empleado extends Usuario

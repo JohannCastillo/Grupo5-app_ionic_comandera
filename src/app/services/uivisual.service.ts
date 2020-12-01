@@ -336,7 +336,7 @@ export class UIVisualService
       buttons: [
         {
           text: 'Clientes',
-          icon: 'person-circle',
+          icon: 'people-outline',
           handler: () => UIVisualService.UI.router.navigate(['/home/menu-cliente'])
         },
         {

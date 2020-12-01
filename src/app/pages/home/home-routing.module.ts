@@ -95,6 +95,10 @@ const routes: Routes = [
         loadChildren: () => import('../estadisticas/estadisticas.module').then(m => m.EstadisticasPageModule)
       },
       {
+        path: 'datos-usuario',
+        loadChildren: () => import('../datos-usuario/datos-usuario.module').then(m => m.DatosUsuarioPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'

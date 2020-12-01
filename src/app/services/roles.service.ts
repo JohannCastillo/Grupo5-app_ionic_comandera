@@ -12,7 +12,6 @@ export class RolesService
 {
   isCliente(usuario: Usuario): boolean
   {
-    console.log(usuario);
     return usuario instanceof Cliente;
   }
 
@@ -85,6 +84,15 @@ export class RolesService
     if (usuario instanceof Empleado)
     {
       return usuario.tipo === TipoEmpleado.Mozo;
+    }
+    return false;
+  }
+
+  isEmpleadoDelivery(usuario: Usuario): boolean
+  {
+    if (usuario instanceof Empleado)
+    {
+      return usuario.tipo === TipoEmpleado.Delivery;
     }
     return false;
   }
