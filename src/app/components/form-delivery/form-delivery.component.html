@@ -1,0 +1,66 @@
+<ion-content class="contenido" color="dark">
+
+  <form #formulario="ngForm">
+
+    <ion-list mode="ios" >
+
+      <ion-list-header color="dark">
+        <ion-label>Pedido Delivery</ion-label>
+      </ion-list-header>
+
+      <ion-item color="dark">
+        <ion-label>
+          <h4>Cliente</h4>
+          <p>
+            {{cliente.nombre}} {{cliente.apellido}}
+            {{cliente.dni}}
+          </p>
+        </ion-label>
+      </ion-item>
+
+<!--       <ion-item color="dark">
+        <ion-label>{{pedido.fechaInicio | date: 'shortDate'}}</ion-label>
+      </ion-item> -->
+
+      <ion-item color="dark" *ngIf="pedido">
+        <ion-label>Total : $ {{pedido.valorTotal}}</ion-label>
+      </ion-item>
+
+    </ion-list>
+
+  </form>
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar class="botones-form" color="dark">
+
+    <ion-button *ngIf="pedido" (click)="mostrarDetalle()" expand="full"
+                color="dark" class="ion-no-margin" size="medium">
+      Ver Detalle
+    </ion-button>
+
+    <ion-button (click)="mostrarCarta()" expand="full" *ngIf="opcion != 'Baja'"
+                color="danger" class="ion-no-margin" size="medium">
+      Ver Carta
+    </ion-button>
+
+    <!-- Se muestra accion segun tipo de llamado al formulario -->
+    <ion-button (click)="alta()" expand="full" type="submit"
+                *ngIf="opcion == 'Alta'" [disabled]="formulario.invalid"
+                color="success" class="ion-no-margin" size="medium">
+      Pedir Delivery
+    </ion-button>
+
+    <ion-button (click)="modificacion()" expand="full" type="submit"
+                *ngIf="opcion == 'Modificación'" [disabled]="formulario.invalid"
+                color="medium" class="ion-no-margin" size="medium">
+      Modificar
+    </ion-button>
+
+    <ion-button (click)="baja()" color="medium" expand="full" type="submit" size="medium"
+                *ngIf="opcion == 'Baja'">
+      Baja
+    </ion-button>
+
+  </ion-toolbar>
+</ion-footer>

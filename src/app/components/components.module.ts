@@ -50,6 +50,10 @@ import { ClientesRechazadosPorDiaComponent } from "./widgets/clientes-rechazados
 import { PedidosPorDiaComponent } from "./widgets/pedidos-por-dia/pedidos-por-dia.component";
 import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por-dia.component";
 import { MapaComponent } from './mapa/mapa.component';
+import { ListadoDeliveryComponent } from './listado-delivery/listado-delivery.component';
+import { FormDeliveryComponent } from './form-delivery/form-delivery.component';
+import { DetalleDeliveryComponent } from './detalle-delivery/detalle-delivery.component';
+
 
 @NgModule({
   declarations: [
@@ -102,7 +106,11 @@ import { MapaComponent } from './mapa/mapa.component';
     IngresosClientesComponent,
     ClientesRechazadosPorDiaComponent,
     PedidosPorDiaComponent,
-    ReservasPorDiaComponent
+    ReservasPorDiaComponent,
+    //Delivery
+    ListadoDeliveryComponent,
+    FormDeliveryComponent,
+    DetalleDeliveryComponent,
   ],
   imports: [
     CommonModule,
@@ -162,7 +170,11 @@ import { MapaComponent } from './mapa/mapa.component';
     IngresosClientesComponent,
     ClientesRechazadosPorDiaComponent,
     PedidosPorDiaComponent,
-    ReservasPorDiaComponent
+    ReservasPorDiaComponent,
+    //Delivery
+    ListadoDeliveryComponent,
+    FormDeliveryComponent,
+    DetalleDeliveryComponent,
   ]
 })
 export class ComponentsModule { }
