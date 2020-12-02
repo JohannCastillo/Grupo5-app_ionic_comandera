@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'auth-page',
     loadChildren: () => import('./pages/auth-page/auth-page.module').then(m => m.AuthPagePageModule)
+  },  {
+    path: 'menu-delivery',
+    loadChildren: () => import('./pages/menu-delivery/menu-delivery.module').then( m => m.MenuDeliveryPageModule)
   },
+
 
 
 
