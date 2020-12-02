@@ -25,8 +25,9 @@ export class Pedido
     fechaFin: number;
     estado: EstadoPedido;
     isActive: boolean;
-    propina?: number;
     idMozo: string;
+    isDelivery: boolean;
+    propina?: number;
     tiempoPreparacion?: number;
 
     public constructor(init?: Partial<Pedido>)

@@ -11,6 +11,7 @@ const { Geolocation, Network } = Plugins;
 export class MapaService
 {
   coords: GeolocationPosition;
+  direccion: NativeGeocoderResult;
 
   constructor(private nativeGeocoder: NativeGeocoder) 
   {
@@ -23,24 +24,17 @@ export class MapaService
     this.coords = coordinates;
   }
 
-  public reverse(latitude: number, longitude: number): string
+  public async reverse(latitude: number, longitude: number)
   {
-    let direccion;
 
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
     };
 
-    this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
-      .then((result: NativeGeocoderResult[]) =>
-      {
-        console.log(JSON.stringify(result[0]));
-        direccion = JSON.stringify(result[0]);
-      })
-      .catch((error: any) => console.log(error));
-
-    return direccion;
+    const direccion = await this.nativeGeocoder.reverseGeocode(latitude, longitude, options);
+    this.direccion = direccion[0];
+    return this.direccion;
   }
 
 }

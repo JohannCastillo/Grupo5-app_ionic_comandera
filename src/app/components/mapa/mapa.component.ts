@@ -31,10 +31,17 @@ export class MapaComponent implements OnInit
     console.log(this.mapaService.coords);
   }
 
-  obtenerDireccion()
+  async obtenerDireccion()
   {
-    this.direccion = this.mapaService.reverse(this.localizacion.coords.latitude,
-      this.localizacion.coords.longitude);
+    this.mapaService.reverse(this.localizacion.coords.latitude, this.localizacion.coords.longitude)
+      .then(() => 
+      {
+        let result = this.mapaService.direccion;
+        this.direccion = `${result.thoroughfare} ${result.subThoroughfare} -
+                        ${result.locality} ${result.subAdministrativeArea} -
+                        ${result.administrativeArea} ${result.countryName} - ${result.postalCode}`;
+        console.log(this.direccion);
+      });
   }
 
 }
