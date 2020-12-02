@@ -27,6 +27,7 @@ export class Pedido
     isActive: boolean;
     propina?: number;
     idMozo: string;
+    isDelivery: boolean;
 
     public constructor(init?: Partial<Pedido>)
     {
