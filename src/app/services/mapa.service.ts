@@ -1,6 +1,6 @@
-import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+
 import { GeolocationPosition, Plugins } from "@capacitor/core";
 
 const { Geolocation, Network } = Plugins;

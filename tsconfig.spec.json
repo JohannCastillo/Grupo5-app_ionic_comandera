@@ -11,6 +11,9 @@
     "src/test.ts",
     "src/polyfills.ts"
   ],
+  "types": [
+    "googlemaps"
+  ],
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"

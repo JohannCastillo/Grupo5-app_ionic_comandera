@@ -16,6 +16,9 @@
       "dom"
     ]
   },
+  "types": [
+    "googlemaps"
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
