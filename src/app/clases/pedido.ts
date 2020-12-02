@@ -28,6 +28,7 @@ export class Pedido
     propina?: number;
     idMozo: string;
     isDelivery: boolean;
+    tiempoPreparacion?: number;
 
     public constructor(init?: Partial<Pedido>)
     {
@@ -39,7 +40,7 @@ export class Pedido
         }
         else
         {
-            console.log("TEST");
+            console.log("Constructor Pedido");
             this.productos = [];
             this.isActive = true;
             this.propina = 0;

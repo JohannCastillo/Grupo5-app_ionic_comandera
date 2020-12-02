@@ -49,6 +49,7 @@ import { IngresosClientesComponent } from './widgets/ingresos-clientes/ingresos-
 import { ClientesRechazadosPorDiaComponent } from "./widgets/clientes-rechazados-por-dia/clientes-rechazados-por-dia.component";
 import { PedidosPorDiaComponent } from "./widgets/pedidos-por-dia/pedidos-por-dia.component";
 import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por-dia.component";
+import { MapaComponent } from './mapa/mapa.component';
 import { ListadoDeliveryComponent } from './listado-delivery/listado-delivery.component';
 import { FormDeliveryComponent } from './form-delivery/form-delivery.component';
 import { DetalleDeliveryComponent } from './detalle-delivery/detalle-delivery.component';
@@ -61,6 +62,7 @@ import { DetalleDeliveryComponent } from './detalle-delivery/detalle-delivery.co
     FotoComponent,
     EscanerQRComponent,
     ChatComponent,
+    MapaComponent,
     // Mesa
     DetalleMesaComponent,
     FormMesasComponent,
@@ -124,6 +126,7 @@ import { DetalleDeliveryComponent } from './detalle-delivery/detalle-delivery.co
     FotoComponent,
     EscanerQRComponent,
     ChatComponent,
+    MapaComponent,
     // Mesa
     FormMesasComponent,
     DetalleMesaComponent,
