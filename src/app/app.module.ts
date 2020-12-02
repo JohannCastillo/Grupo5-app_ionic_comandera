@@ -24,7 +24,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { NotificationsService } from './services/notifications.service';
 
@@ -55,7 +55,8 @@ import { NotificationsService } from './services/notifications.service';
     AngularFireDatabase,
     ProfileGuardService,
     GooglePlus,
-    NotificationsService
+    NotificationsService,
+    NativeGeocoder
   ],
   bootstrap: [AppComponent]
 })

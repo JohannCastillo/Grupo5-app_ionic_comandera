@@ -1,0 +1,46 @@
+<ion-content>
+
+  <ion-list *ngIf="localizacion" mode="ios">
+
+    <ion-list-header>
+      <ion-label>Geolocalización</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Precisión: {{localizacion.coords.accuracy}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Latitud: {{localizacion.coords.latitude}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Longitud: {{localizacion.coords.longitude}}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="direccion">
+      <ion-label>Dirección:{{direccion}}</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <div id="mapa">
+
+  </div>
+
+  <ion-button (click)="localizar()" expand="block" color="primary">
+    Localizar
+  </ion-button>
+
+  <ion-button (click)="obtenerDireccion()" expand="block" color="primary">
+    Obtener direccion
+  </ion-button>
+
+  <!-- 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="localizar()">
+      <ion-icon name="pin"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+</ion-content>

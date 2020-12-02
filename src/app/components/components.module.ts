@@ -49,6 +49,7 @@ import { IngresosClientesComponent } from './widgets/ingresos-clientes/ingresos-
 import { ClientesRechazadosPorDiaComponent } from "./widgets/clientes-rechazados-por-dia/clientes-rechazados-por-dia.component";
 import { PedidosPorDiaComponent } from "./widgets/pedidos-por-dia/pedidos-por-dia.component";
 import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por-dia.component";
+import { MapaComponent } from './mapa/mapa.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por
     FotoComponent,
     EscanerQRComponent,
     ChatComponent,
+    MapaComponent,
     // Mesa
     DetalleMesaComponent,
     FormMesasComponent,
@@ -116,6 +118,7 @@ import { ReservasPorDiaComponent } from "./widgets/reservas-por-dia/reservas-por
     FotoComponent,
     EscanerQRComponent,
     ChatComponent,
+    MapaComponent,
     // Mesa
     FormMesasComponent,
     DetalleMesaComponent,
