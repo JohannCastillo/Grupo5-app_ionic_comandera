@@ -28,6 +28,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { NotificationsService } from './services/notifications.service';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
