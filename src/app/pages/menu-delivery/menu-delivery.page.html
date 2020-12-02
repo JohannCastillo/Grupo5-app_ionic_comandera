@@ -1,0 +1,25 @@
+<app-header titulo="Delivery"></app-header>
+
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
+  <ion-segment-button value="Listado">
+    <ion-icon name="list-sharp"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="Alta" *ngIf="rolService.isClienteAceptado(usuario)">
+    <ion-icon name="add"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="Baja" *ngIf="rolService.isClienteAceptado(usuario) && deliveryElegido">
+    <ion-icon name="trash-sharp"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="Modificación" *ngIf="rolService.isClienteAceptado(usuario) && deliveryElegido">
+    <ion-icon name="create-sharp"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content class="fondo">
+
+  <app-listado-delivery *ngIf="opcion == 'Listado'" [reservas]="listado" (elegirReserva)="elegirPedidoDelivery($event)">
+  </app-listado-delivery>
+  <app-form-delivery *ngIf="opcion != 'Listado'" [pedido]="deliveryElegido" [opcion]="opcion">
+  </app-form-delivery>
+
+</ion-content>

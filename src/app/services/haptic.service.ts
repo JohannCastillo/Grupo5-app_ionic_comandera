@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
 import
 {
   Plugins,
@@ -17,6 +18,10 @@ export class HapticService
 
   static vibrar()
   {
-    Haptics.vibrate();
+    if (Capacitor.platform != 'web')
+    {
+      Haptics.vibrate();
+    }
+    
   }
 }

@@ -12,7 +12,7 @@
         <ion-icon name="log-out" (click)="cerrarSesion()"></ion-icon>
       </ion-fab-button>
       <ion-fab-button *ngIf="rolService.isEmpleado(usuario)" color="primary" translucent="true"
-                      (click)="verEncuestaEmpleado()">
+        (click)="verEncuestaEmpleado()">
         <ion-icon name="create-sharp"></ion-icon>
       </ion-fab-button>
       <ion-fab-button *ngIf="!muteado" (click)="desactivarSonido()" color="light" translucent="true">
@@ -49,6 +49,10 @@
       <ion-label>Reservas</ion-label>
     </ion-tab-button>
 
+    <ion-tab-button tab="menu-delivery" *ngIf="rolService.isClienteAceptado(usuario)" color="success">
+      <ion-icon name="bicycle-outline"></ion-icon>
+      <ion-label>Delivery</ion-label>
+    </ion-tab-button>
 
     <ion-tab-button tab="menu-pedidos" *ngIf="rolService.isEmpleado(usuario)">
       <ion-icon name="fast-food"></ion-icon>
