@@ -1,0 +1,24 @@
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let pedidoDelivery of pedidoDeliverys">
+    <ion-col size="12" size-lg="6" (click)="seleccionarReserva(pedidoDelivery)" color="dark"
+      class="ion-justify-content-center">
+
+      <ion-list class="contenido">
+        <app-detalle-delivery [delivery]="pedidoDelivery"></app-detalle-delivery>
+        <div *ngIf="pedidoDelivery.estado == 'Reservado'">
+          <div *ngIf="rolService.isJefe(usuario)">
+            <ion-button size="large" fill="solid" color="success" (click)="confirmarPedidoDelivery(pedidoDelivery)">
+              Confirmar
+            </ion-button>
+            <ion-button size="large" fill="solid" color="danger" (click)="rechazarPedidoDelivery(pedidoDelivery)">
+              Rechazar
+            </ion-button>
+          </div>
+        </div>
+      </ion-list>
+
+
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
