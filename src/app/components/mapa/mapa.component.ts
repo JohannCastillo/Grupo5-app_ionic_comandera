@@ -53,6 +53,11 @@ export class MapaComponent implements OnInit
       });
   }
 
+  onClick()
+  {
+    console.log("CLICK");
+  }
+
   cargarMapa()
   {
     let latLng = new google.maps.LatLng(this.localizacion.coords.latitude,
@@ -64,6 +69,7 @@ export class MapaComponent implements OnInit
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
 
     this.map.addListener('dragend', () =>
     {

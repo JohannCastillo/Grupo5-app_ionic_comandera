@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content color="dark">
 
   <ion-list *ngIf="localizacion">
 
@@ -38,7 +38,7 @@
 
   <div class="map-wrapper">
     <div id="map_center">
-      <ion-icon slot="start" name="marker"></ion-icon>
+      <ion-icon (click)="onClick()" slot="icon-only" name="pin-sharp" color="danger"></ion-icon>
     </div>
     <div #map id="map"></div>
   </div>
