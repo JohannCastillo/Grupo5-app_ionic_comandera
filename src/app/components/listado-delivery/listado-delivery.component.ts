@@ -13,9 +13,10 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
   templateUrl: './listado-delivery.component.html',
   styleUrls: ['./listado-delivery.component.scss'],
 })
-export class ListadoDeliveryComponent implements OnInit {
+export class ListadoDeliveryComponent implements OnInit
+{
 
-  @Input() reservas: Pedido[] = [];
+  @Input() pedidosDelivery: Pedido[] = [];
   @Output() elegirPedidoDelivery: EventEmitter<Reserva> = new EventEmitter<Reserva>();
   usuario: Usuario;
 
@@ -30,23 +31,16 @@ export class ListadoDeliveryComponent implements OnInit {
   {
     UIVisualService.loading(2000);
     this.usuario = AuthService.usuario;
-    if (this.rolService.isJefe(this.usuario))
-    {
-      this.reservas = this.reservas.filter(reserva => reserva.estado == EstadoPedido.RESERVADO)
-    } else
-    {
-      this.reservas = this.reservas.filter(reserva => reserva.cliente.id == this.usuario.id)
-    }
   }
 
   ngDoCheck()
   {
     if (this.rolService.isJefe(this.usuario))
     {
-      this.reservas = this.reservas.filter(reserva => reserva.estado == EstadoPedido.RESERVADO)
+      this.pedidosDelivery = this.pedidosDelivery.filter(reserva => reserva.estado == EstadoPedido.RESERVADO)
     } else
     {
-      this.reservas = this.reservas.filter(reserva => reserva.cliente.id == this.usuario.id)
+      this.pedidosDelivery = this.pedidosDelivery.filter(reserva => reserva.cliente.id == this.usuario.id)
     }
   }
 

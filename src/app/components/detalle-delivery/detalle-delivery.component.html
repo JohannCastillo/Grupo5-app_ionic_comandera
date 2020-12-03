@@ -1,18 +1,27 @@
 <div class="ion-activatable centrado">
   <ion-card mode="ios" color="dark">
     <ion-card-header>
-      <ion-card-title>Reserva: {{reserva.cliente.nombre}}</ion-card-title>
+      <ion-card-title>Cliente: {{delivery.cliente.nombre}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <ion-chip color="success" mode="ios" outline="true">
-        <ion-label>Reservado para {{reserva.fechaInicio | date: 'd/M/yy'}} </ion-label>
+        <ion-label>Pedido de delivery para {{delivery.fechaInicio | date: 'd/M/yy'}} </ion-label>
       </ion-chip>
       <ion-chip color="success" mode="ios" outline="true">
-        <ion-label>A las {{reserva.fechaInicio | date: 'shortTime' :'UTC'}} hs</ion-label>
+        <ion-label>A las {{delivery.fechaInicio | date: 'shortTime' :'UTC'}} hs</ion-label>
       </ion-chip>
+      <br>
       <ion-chip color="success" mode="ios" outline="true">
-        <ion-label>Mesa Seleccionada: {{reserva.mesa.numero}}</ion-label>
+        <ion-label> Dirección: </ion-label>
+      </ion-chip>
+      <br>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Ubicarcion delivery?: </ion-label>
+      </ion-chip>
+      <br>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Estado?: </ion-label>
       </ion-chip>
     </ion-card-content>
   </ion-card>
