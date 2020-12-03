@@ -17,7 +17,7 @@
 
 <ion-content class="fondo">
 
-  <app-listado-delivery *ngIf="opcion == 'Listado'" [reservas]="listado" (elegirReserva)="elegirPedidoDelivery($event)">
+  <app-listado-delivery *ngIf="opcion == 'Listado'" [pedidosDelivery]="listado" (elegirReserva)="elegirPedidoDelivery($event)">
   </app-listado-delivery>
   <app-form-delivery *ngIf="opcion != 'Listado'" [pedido]="deliveryElegido" [opcion]="opcion">
   </app-form-delivery>

@@ -34,17 +34,13 @@ export class MenuDeliveryPage implements OnInit {
 
   ngDoCheck(): void
   {
-    this.listado = PedidoService.pedidos.filter(pedido => {if(pedido.isDelivery && pedido.isDelivery == true){ return pedido}});
+    this.listado = PedidoService.pedidos.filter(pedido => pedido.isDelivery);
   }
 
   ngOnInit()
   {
     this.usuario = AuthService.usuario;
     console.log("INIT");
-    this.pedidoService.leer().then(data =>
-    {
-      this.listado = data.filter(pedido => {if(pedido.isDelivery && pedido.isDelivery == true){ return pedido}});
-    });
     this.route.queryParams.subscribe(params =>
     {
       if (params.opcion)
