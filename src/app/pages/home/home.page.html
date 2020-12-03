@@ -49,7 +49,7 @@
       <ion-label>Reservas</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-delivery" *ngIf="rolService.isClienteAceptado(usuario)" color="success">
+    <ion-tab-button tab="menu-delivery" *ngIf="rolService.isJefe(usuario) || rolService.isClienteAceptado(usuario)" color="success">
       <ion-icon name="bicycle-outline"></ion-icon>
       <ion-label>Delivery</ion-label>
     </ion-tab-button>
