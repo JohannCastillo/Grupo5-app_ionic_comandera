@@ -59,9 +59,14 @@ export class InfoMesaPage implements OnInit, DoCheck
 
     if (this.rolService.isCliente(this.usuario)) // Si es cliente accede por QR de Mesa
     {
+      
       this.pedido = PedidoService.pedidos.filter(pedido =>
       {
         // Agregar validacion de hora actual
+        if(pedido.isDelivery){
+          return pedido.cliente.id === this.usuario.id &&
+          pedido.estado != EstadoPedido.PAGADO;
+        }
         if (pedido.cliente && pedido.mesa)
         {
           return pedido.mesa.id === this.idMesa &&
