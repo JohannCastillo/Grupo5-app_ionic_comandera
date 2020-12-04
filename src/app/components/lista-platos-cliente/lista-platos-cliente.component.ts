@@ -64,11 +64,23 @@ export class ListaPlatosClienteComponent implements OnInit
 
   notificar(pedido: Pedido, index: number)
   {
-    let titulo = `Pedido Mesa ${pedido.mesa.numero} Listo`;
-    let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
-    this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'mozos')
-      .then(() => this.presentToast('Mozo Notificado'))
-      .catch(() => this.presentToast('No se pudo Notificar al mozo, pegale un grito'))
+    if (pedido.isDelivery)
+    {
+      let titulo = `Pedido Delivery para ${pedido.cliente.nombre} ${pedido.cliente.apellido} esta listo.`;
+      let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
+      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'delivery')
+        .then(() => this.presentToast('Delivery Notificado'))
+        .catch(() => this.presentToast('No se pudo Notificar al delivery, pegale un grito'))
+    }
+    else
+    {
+      let titulo = `Pedido Mesa ${pedido.mesa.numero} Listo`;
+      let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
+      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'mozos')
+        .then(() => this.presentToast('Mozo Notificado'))
+        .catch(() => this.presentToast('No se pudo Notificar al mozo, pegale un grito'))
+    }
+
   }
 
   cerrar()
