@@ -44,6 +44,10 @@ export const USERS_TEST =
     mail: "mozo@mail.com",
     password: "111111"
   },
+  delivery: {
+    mail: "pepo@mail.com",
+    password: "111111"
+  },
   cocinero: {
     mail: "cocinero@mail.com",
     password: "111111"
