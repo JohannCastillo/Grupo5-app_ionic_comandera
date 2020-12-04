@@ -26,7 +26,7 @@ export class ListadoDeliveryComponent implements OnInit
     private visual: UIVisualService,
     private pedidoService: PedidoService,
     public alertController: AlertController,
-    private notificationsService:NotificationsService
+    private notificationsService: NotificationsService
   ) { }
 
   ngOnInit()
@@ -40,7 +40,8 @@ export class ListadoDeliveryComponent implements OnInit
     if (this.rolService.isJefe(this.usuario))
     {
       this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => pedidoDelivery.estado == EstadoPedido.RESERVADO)
-    } else
+    }
+    else if (this.rolService.isClienteAceptado(this.usuario))
     {
       this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => pedidoDelivery.cliente.id == this.usuario.id)
     }
@@ -58,12 +59,13 @@ export class ListadoDeliveryComponent implements OnInit
     this.pedidoService.aceptarPedido(pedidoDelivery);
     this.pedidoService.actualizar(pedidoDelivery).then(() =>
     {
-      this.notificationsService.enviarNotificacionPorToken('Delivery confirmado.',`El tiempo de espera aproximado es de ${pedidoDelivery.tiempoPreparacion} minutos`,pedidoDelivery.cliente.tokenNotification).catch(()=>alert('No se pudo alertar al cliente'));
+      this.notificationsService.enviarNotificacionPorToken('Delivery confirmado.', `El tiempo de espera aproximado es de ${pedidoDelivery.tiempoPreparacion} minutos`, pedidoDelivery.cliente.tokenNotification).catch(() => alert('No se pudo alertar al cliente'));
       UIVisualService.presentToast('Reserva Confirmada.');
     })
   }
 
-  async alertTiempoDeEspera(pedidoDelivery : Pedido) {
+  async alertTiempoDeEspera(pedidoDelivery: Pedido)
+  {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Tiempo de espera aproximado(min)',
@@ -79,12 +81,14 @@ export class ListadoDeliveryComponent implements OnInit
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: value => {
+          handler: value =>
+          {
             console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
-          handler: value => {
+          handler: value =>
+          {
             console.log('Confirm Ok', value);
             pedidoDelivery.tiempoPreparacion = value.tiempoDeEspera;
             this.confirmarPedidoDelivery(pedidoDelivery);
