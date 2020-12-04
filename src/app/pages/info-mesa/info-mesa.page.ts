@@ -23,6 +23,7 @@ export class InfoMesaPage implements OnInit, DoCheck
   horaActual: Date;
   idPedido: string;
   idMesa: string;
+  isDelivery:boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private mesaService: MesaService,
     private clienteService: ClienteService, private pedidoService: PedidoService,
@@ -59,9 +60,14 @@ export class InfoMesaPage implements OnInit, DoCheck
 
     if (this.rolService.isCliente(this.usuario)) // Si es cliente accede por QR de Mesa
     {
+      
       this.pedido = PedidoService.pedidos.filter(pedido =>
       {
         // Agregar validacion de hora actual
+        if(pedido.isDelivery && pedido.estado != EstadoPedido.PAGADO){
+          this.isDelivery = true;
+          return pedido.cliente.id === this.usuario.id;
+        }
         if (pedido.cliente && pedido.mesa)
         {
           return pedido.mesa.id === this.idMesa &&
@@ -76,9 +82,14 @@ export class InfoMesaPage implements OnInit, DoCheck
       this.pedido = PedidoService.pedidos.filter(pedido =>
       {
         // Agregar validacion de hora actual
-        if (pedido.cliente && pedido.mesa)
+        if(pedido.isDelivery && pedido.id === this.idPedido){
+          this.isDelivery = true;
+          return true;
+        }
+        if (pedido.cliente && pedido.mesa && pedido.id === this.idPedido)
         {
-          return pedido.id === this.idPedido;
+          this.isDelivery = false;
+          return true;
         }
       })[0];
     }

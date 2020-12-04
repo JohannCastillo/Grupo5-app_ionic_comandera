@@ -2,7 +2,8 @@
 
   <div class="contenido">
 
-    <app-detalle-reserva *ngIf="pedido" [reserva]="pedido"></app-detalle-reserva>
+    <app-detalle-reserva *ngIf="pedido && !isDelivery" [reserva]="pedido"></app-detalle-reserva>
+    <app-detalle-delivery *ngIf="pedido && isDelivery" [delivery]="pedido"></app-detalle-delivery>
     <app-detalle-pedido *ngIf="pedido" [pedido]="pedido" class="ion-no-margin"></app-detalle-pedido>
 
   </div>

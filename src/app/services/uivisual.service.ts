@@ -187,6 +187,7 @@ export class UIVisualService
         }
 
         break;
+      case 'Delivery':
       case 'Mozo':
         handlers.mostrarPlatos.boton = {
           text: 'Mostrar Platos',
