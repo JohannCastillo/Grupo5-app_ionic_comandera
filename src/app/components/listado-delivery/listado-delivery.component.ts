@@ -45,7 +45,7 @@ export class ListadoDeliveryComponent implements OnInit
     }
     else if (this.rolService.isClienteAceptado(this.usuario))
     {
-      this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => pedidoDelivery.cliente.id == this.usuario.id)
+      this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => {return pedidoDelivery.cliente.id == this.usuario.id &&  pedidoDelivery.estado != EstadoPedido.PAGADO})
     }
   }
 
