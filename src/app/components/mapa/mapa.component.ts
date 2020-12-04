@@ -121,7 +121,7 @@ export class MapaComponent implements OnInit
 
     marker.addListener('click', () =>
     {
-      console.log("CLICK");
+      console.log(marker.getPosition());
     })
 
     this.visualizacionDirecciones.setMap(this.map);
