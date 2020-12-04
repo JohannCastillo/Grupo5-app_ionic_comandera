@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, SelectValueAccessor } from '@ionic/angular';
 import { Pedido, EstadoPedido } from 'src/app/clases/pedido';
-import { Reserva } from 'src/app/clases/reserva';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
@@ -17,7 +17,7 @@ export class ListadoDeliveryComponent implements OnInit
 {
 
   @Input() pedidosDelivery: Pedido[] = [];
-  @Output() elegirPedidoDelivery: EventEmitter<Reserva> = new EventEmitter<Reserva>();
+  @Output() elegirPedidoDelivery: EventEmitter<Pedido> = new EventEmitter<Pedido>();
   usuario: Usuario;
 
   constructor(
@@ -25,6 +25,8 @@ export class ListadoDeliveryComponent implements OnInit
     private rolService: RolesService,
     private visual: UIVisualService,
     private pedidoService: PedidoService,
+    public alertController: AlertController,
+    private notificationsService:NotificationsService
   ) { }
 
   ngOnInit()
@@ -37,32 +39,68 @@ export class ListadoDeliveryComponent implements OnInit
   {
     if (this.rolService.isJefe(this.usuario))
     {
-      this.pedidosDelivery = this.pedidosDelivery.filter(reserva => reserva.estado == EstadoPedido.RESERVADO)
+      this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => pedidoDelivery.estado == EstadoPedido.RESERVADO)
     } else
     {
-      this.pedidosDelivery = this.pedidosDelivery.filter(reserva => reserva.cliente.id == this.usuario.id)
+      this.pedidosDelivery = this.pedidosDelivery.filter(pedidoDelivery => pedidoDelivery.cliente.id == this.usuario.id)
     }
   }
 
-  seleccionarReserva(reserva: Reserva)
+  seleccionarReserva(pedidoDelivery: Pedido)
   {
-    this.elegirPedidoDelivery.emit(reserva);
+    this.elegirPedidoDelivery.emit(pedidoDelivery);
   }
 
-  confirmarPedidoDelivery(reserva: Pedido)
+  confirmarPedidoDelivery(pedidoDelivery: Pedido)
   {
-    reserva.estado = EstadoPedido.ASIGNADO;
-    this.pedidoService.actualizar(reserva).then(() =>
+    console.log(pedidoDelivery);
+    pedidoDelivery.estado = EstadoPedido.SOLICITADO;
+    this.pedidoService.aceptarPedido(pedidoDelivery);
+    this.pedidoService.actualizar(pedidoDelivery).then(() =>
     {
+      this.notificationsService.enviarNotificacionPorToken('Delivery confirmado.',`El tiempo de espera aproximado es de ${pedidoDelivery.tiempoPreparacion} minutos`,pedidoDelivery.cliente.tokenNotification).catch(()=>alert('No se pudo alertar al cliente'));
       UIVisualService.presentToast('Reserva Confirmada.');
     })
   }
 
-  rechazarPedidoDelivery(reserva: Pedido)
+  async alertTiempoDeEspera(pedidoDelivery : Pedido) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Tiempo de espera aproximado(min)',
+      inputs: [
+        {
+          name: 'tiempoDeEspera',
+          type: 'text',
+          placeholder: 'ingrese minutos de espera'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: value => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: value => {
+            console.log('Confirm Ok', value);
+            pedidoDelivery.tiempoPreparacion = value.tiempoDeEspera;
+            this.confirmarPedidoDelivery(pedidoDelivery);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  rechazarPedidoDelivery(pedidoDelivery: Pedido)
   {
-    reserva.isActive = false;
-    reserva.fechaFin = Date.now();
-    this.pedidoService.actualizar(reserva).then(() =>
+    pedidoDelivery.isActive = false;
+    pedidoDelivery.fechaFin = Date.now();
+    this.pedidoService.actualizar(pedidoDelivery).then(() =>
     {
       //Avisar al cliente
       UIVisualService.presentToast('Reserva Rechazada.');

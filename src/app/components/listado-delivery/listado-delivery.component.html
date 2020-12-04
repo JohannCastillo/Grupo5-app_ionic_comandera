@@ -7,7 +7,7 @@
         <app-detalle-delivery [delivery]="pedidoDelivery"></app-detalle-delivery>
         <div *ngIf="pedidoDelivery.estado == 'Reservado'">
           <div *ngIf="rolService.isJefe(usuario)">
-            <ion-button size="large" fill="solid" color="success" (click)="confirmarPedidoDelivery(pedidoDelivery)">
+            <ion-button size="large" fill="solid" color="success" (click)="alertTiempoDeEspera(pedidoDelivery)">
               Confirmar
             </ion-button>
             <ion-button size="large" fill="solid" color="danger" (click)="rechazarPedidoDelivery(pedidoDelivery)">
