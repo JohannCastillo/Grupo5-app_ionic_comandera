@@ -52,6 +52,10 @@ export class DetallePedidoComponent implements OnInit
     {
       this.rol = 'Bartender';
     }
+    else if (this.rolService.isEmpleadoDelivery(this.usuario))
+    {
+      this.rol = 'Delivery';
+    }
 
     this.metadataMensaje = {
       chatId: this.pedido.id,
