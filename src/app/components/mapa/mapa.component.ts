@@ -18,6 +18,7 @@ export class MapaComponent implements OnInit
   localizacion: GeolocationPosition;
   direccion: string;
   map: any;
+  marker: any;
   latitude: number;
   longitude: number;
   origen: string;
@@ -111,7 +112,7 @@ export class MapaComponent implements OnInit
     }
 
     // Se crea marcador para el mapa
-    const marker = new google.maps.Marker({
+    this.marker = new google.maps.Marker({
       position: latLng,
       map: this.map,
       label: 'Mi ubicación',
@@ -119,15 +120,22 @@ export class MapaComponent implements OnInit
       icon: icon
     });
 
-    marker.addListener('click', () =>
+    this.marker.addListener('click', () =>
     {
-      console.log(marker.getPosition());
+      console.log(this.marker.getPosition().lat());
+      console.log(this.marker.getPosition().lng());
     })
 
     this.visualizacionDirecciones.setMap(this.map);
   }
 
+  seguir()
+  {
+    this.localizar();
+    let latLng = new google.maps.LatLng(this.localizacion.coords.latitude, this.localizacion.coords.longitude);
 
+    this.marker.setPosition(latLng);
+  }
 
 
 
