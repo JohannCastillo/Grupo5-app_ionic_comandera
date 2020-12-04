@@ -68,7 +68,7 @@ export class ListaPlatosClienteComponent implements OnInit
     {
       let titulo = `Pedido Delivery para ${pedido.cliente.nombre} ${pedido.cliente.apellido} esta listo.`;
       let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
-      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'delivery')
+      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-delivery', 'delivery')
         .then(() => this.presentToast('Delivery Notificado'))
         .catch(() => this.presentToast('No se pudo Notificar al delivery, pegale un grito'))
     }
