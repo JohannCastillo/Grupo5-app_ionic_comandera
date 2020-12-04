@@ -5,6 +5,9 @@
 
       <ion-list class="contenido">
         <app-detalle-delivery [delivery]="pedidoDelivery"></app-detalle-delivery>
+        <ion-button (click)="verDetalle(pedidoDelivery)" expand="block" fill="clear" color="success" strong="true">
+          Ver detalle
+        </ion-button>
         <div *ngIf="pedidoDelivery.estado == 'Reservado'">
           <div *ngIf="rolService.isJefe(usuario)">
             <ion-button size="large" fill="solid" color="success" (click)="alertTiempoDeEspera(pedidoDelivery)">

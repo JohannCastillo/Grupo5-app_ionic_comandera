@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, SelectValueAccessor } from '@ionic/angular';
 import { Pedido, EstadoPedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
@@ -26,7 +27,8 @@ export class ListadoDeliveryComponent implements OnInit
     private visual: UIVisualService,
     private pedidoService: PedidoService,
     public alertController: AlertController,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit()
@@ -111,4 +113,8 @@ export class ListadoDeliveryComponent implements OnInit
     })
   }
 
+  verDetalle(pedido: Pedido)
+  {
+    this.router.navigate(['/home/info-mesa', 0, pedido.id]);
+  }
 }
