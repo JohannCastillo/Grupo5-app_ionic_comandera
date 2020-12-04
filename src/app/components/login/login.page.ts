@@ -196,6 +196,10 @@ export class LoginPage implements OnInit
         handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.mozo.mail, USERS_TEST.mozo.password)
       },
       {
+        text: 'Delivery',
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.delivery.mail, USERS_TEST.delivery.password)
+      },
+      {
         text: 'Cocinero',
         handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cocinero.mail, USERS_TEST.cocinero.password)
       },

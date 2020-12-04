@@ -117,22 +117,25 @@ export class NotificationsService
 
   unsubscribeAll()
   {
-    fcm
-      .unsubscribeFrom({ topic: 'jefes' })
-      .then((r) => console.log(`unsubcribed from jefes`))
-      .catch((err) => console.error(err));
-    fcm
-      .unsubscribeFrom({ topic: 'mozos' })
-      .then((r) => console.log(`unsubcribed from mozos`))
-      .catch((err) => console.error(err));
-    fcm
-      .unsubscribeFrom({ topic: 'cocineros' })
-      .then((r) => console.log(`unsubcribed from cocineros`))
-      .catch((err) => console.error(err));
-    fcm
-      .unsubscribeFrom({ topic: 'bartenders' })
-      .then((r) => console.log(`unsubcribed from bartenders`))
-      .catch((err) => console.error(err));
+    if (Capacitor.platform != 'web')
+    {
+      fcm
+        .unsubscribeFrom({ topic: 'jefes' })
+        .then((r) => console.log(`unsubcribed from jefes`))
+        .catch((err) => console.error(err));
+      fcm
+        .unsubscribeFrom({ topic: 'mozos' })
+        .then((r) => console.log(`unsubcribed from mozos`))
+        .catch((err) => console.error(err));
+      fcm
+        .unsubscribeFrom({ topic: 'cocineros' })
+        .then((r) => console.log(`unsubcribed from cocineros`))
+        .catch((err) => console.error(err));
+      fcm
+        .unsubscribeFrom({ topic: 'bartenders' })
+        .then((r) => console.log(`unsubcribed from bartenders`))
+        .catch((err) => console.error(err));
+    }
   }
 
   /**
@@ -140,7 +143,7 @@ export class NotificationsService
    * @param usuario 
    * @param token 
    */
-  nuevoToken(usuario, token)
+  private nuevoToken(usuario, token)
   {
     if (usuario.tokenNotification)
     {
@@ -156,7 +159,7 @@ export class NotificationsService
     }
   }
 
-  actualizarUsuario(usuario: Usuario)
+  private actualizarUsuario(usuario: Usuario)
   {
     console.log(usuario);
 
@@ -255,7 +258,7 @@ export class NotificationsService
     return response.data;
   }
 
-  manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
+  private manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
   {
     if (this.rolesService.isEmpleado(usuario))
     {
@@ -267,12 +270,12 @@ export class NotificationsService
     }
   }
 
-  manejarNotificacionSegundoPlano(notificacion: PushNotification, usuario: Usuario)
+  private manejarNotificacionSegundoPlano(notificacion: PushNotification, usuario: Usuario)
   {
     this.router.navigate([notificacion.data.ruta]);
   }
 
-  async presentAlert(header, message)
+  private async presentAlert(header, message)
   {
     const alert = await this.alertController.create({
       header,

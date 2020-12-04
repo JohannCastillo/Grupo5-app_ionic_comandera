@@ -34,9 +34,17 @@ export class ListadoPedidosComponent implements OnInit, DoCheck
     this.elegirPedido.emit(pedido);
   }
 
-  verDetalle(pedido)
+  verDetalle(pedido: Pedido)
   {
-    this.router.navigate(['/home/info-mesa', pedido.mesa.id, pedido.id]);
+    if (pedido.isDelivery)
+    {
+      this.router.navigate(['/home/info-mesa', 0, pedido.id]);
+    }
+    else
+    {
+      this.router.navigate(['/home/info-mesa', pedido.mesa.id, pedido.id]);
+    }
+
   }
 
   filtrarPedido(pedido: Pedido)
