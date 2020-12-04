@@ -3,14 +3,16 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 
 import { GeolocationPosition, Plugins } from "@capacitor/core";
 
-const { Geolocation, Network } = Plugins;
+const { Geolocation } = Plugins;
+
+declare var google;
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapaService
 {
-  coords: GeolocationPosition;
+  posicion: GeolocationPosition;
   direccion: NativeGeocoderResult;
 
   constructor(private nativeGeocoder: NativeGeocoder) 
@@ -21,12 +23,11 @@ export class MapaService
   async locate()
   {
     const coordinates = await Geolocation.getCurrentPosition();
-    this.coords = coordinates;
+    this.posicion = coordinates;
   }
 
   public async reverse(latitude: number, longitude: number)
   {
-
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
@@ -36,6 +37,8 @@ export class MapaService
     this.direccion = direccion[0];
     return this.direccion;
   }
+
+
 
 }
 

@@ -22,11 +22,26 @@
       <ion-label>Dirección:{{direccion}}</ion-label>
     </ion-item>
 
+    <ion-item>
+      <ion-label position="fixed">Origen</ion-label>
+      <ion-input [(ngModel)]="origen"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Destino</ion-label>
+      <ion-input [(ngModel)]="destino"></ion-input>
+    </ion-item>
+
+
   </ion-list>
 
   <div id="mapa">
 
   </div>
+
+  <ion-button (click)="calcularDistancia()" expand="block" color="primary">
+    Mostrar distancia
+  </ion-button>
 
   <ion-button (click)="localizar()" expand="block" color="primary">
     Localizar
@@ -38,7 +53,6 @@
 
   <div class="map-wrapper">
     <div id="map_center">
-      <ion-icon (click)="onClick()" slot="icon-only" name="pin-sharp" color="danger"></ion-icon>
     </div>
     <div #map id="map"></div>
   </div>
