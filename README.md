@@ -1,4 +1,6 @@
-# Trabajo práctico 2 PPS
+# TP 2 Practica Profesional Supervisada UTN FRA
+## Ionic + Capacitor + Cordova + Firebase
+
 # Comandera
 Sistema de gestión gastronómica
 
