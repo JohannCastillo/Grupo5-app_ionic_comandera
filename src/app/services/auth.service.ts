@@ -37,28 +37,28 @@ export const USERS_TEST =
     password: "111111"
   },
   supervisor: {
-    mail: "supervisor@mail.com",
-    password: "111111"
+    mail: "supervisor@gmail.com",
+    password: "password"
   },
   mozo: {
-    mail: "mozo@mail.com",
-    password: "111111"
+    mail: "mozo@gmail.com",
+    password: "password"
   },
   delivery: {
-    mail: "pepo@mail.com",
-    password: "111111"
+    mail: "pepe@gmail.com",
+    password: "password"
   },
   cocinero: {
-    mail: "cocinero@mail.com",
-    password: "111111"
+    mail: "cocinero@gmail.com",
+    password: "password"
   },
   bartender: {
-    mail: "bartender@mail.com",
-    password: "111111"
+    mail: "bartender@gmail.com",
+    password: "password"
   },
   duenio: {
     mail: "duenio@mail.com",
-    password: "111111"
+    password: "password"
   },
 
 }
